@@ -9,7 +9,6 @@
 
 #ifndef _MAIN_2_H_
 #define _MAIN_2_H_
-
 #include <iostream>
 #include <iomanip>
 #include <cmath>
@@ -22,5 +21,7 @@
 
 using namespace std;
 //The library here is concretely set, students are not allowed to include any other libraries.
-
+// addition
+static int COUNT = 0;
+static ofstream OUTPUT;
 #endif //_MAIN_2_H_

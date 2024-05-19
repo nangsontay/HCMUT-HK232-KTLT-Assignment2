@@ -10,7 +10,6 @@
 //The library here is concretely set, students are not allowed to include any other libraries.
 #ifndef _H_STUDY_IN_PINK_2_H_
 #define _H_STUDY_IN_PINK_2_H_
-
 #include "main.h"
 
 
@@ -23,26 +22,41 @@
 
 
 // Forward declaration
- class MovingObject;
- class Position;
- class Configuration;
- class Map;
+class MovingObject;
+
+class Position;
+
+class Configuration;
+
+class Map;
+
 class Sherlock;
+
 class Watson;
- class Criminal;
- class Robot;
- class RobotS;
- class RobotW;
- class RobotSW;
- class RobotC;
 
- class ArrayMovingObject;
- class StudyPinkProgram;
+class Criminal;
 
- class BaseItem;
- class BaseBag;
- class SherlockBag;
- class WatsonBag;
+class Robot;
+
+class RobotS;
+
+class RobotW;
+
+class RobotSW;
+
+class RobotC;
+
+class ArrayMovingObject;
+
+class StudyPinkProgram;
+
+class BaseItem;
+
+class BaseBag;
+
+class SherlockBag;
+
+class WatsonBag;
 
 class TestStudyInPink;
 
@@ -56,87 +70,75 @@ void getPosition(int &r, int &c, string input);
 //calculate Manhattan distance of 2 Position
 int calculateDistance(const Position &pos1, const Position &pos2);
 int reduceNum(int num);
-enum ItemType
-{
+enum ItemType {
   MAGIC_BOOK,
   ENERGY_DRINK,
   FIRST_AID,
   EXCEMPTION_CARD,
   PASSING_CARD
 };
-enum ElementType
-{
+enum ElementType {
   PATH,
   WALL,
   FAKE_WALL
 };
-enum RobotType
-{
+enum RobotType {
   C = 0,
   S,
   W,
   SW,
-  ALL=9999
+  ALL = 9999
 };
 // addition
-enum MovingObjectType
-{
+enum MovingObjectType {
   SHERLOCK,
   WATSON,
   CRIMINAL,
   ROBOT
 };
 
-class MapElement
-{
+class MapElement {
   friend class TestStudyPink;
 
  protected:
   ElementType type;
-
  public:
   MapElement(ElementType in_type);
-  virtual ~MapElement();
+  ~MapElement() {};
   virtual ElementType getType() const;
 };
 
-class Path : public MapElement
-{
+class Path : public MapElement {
   friend class TestStudyPink;
 
  public:
-  Path(): MapElement(PATH) {};
+  Path() : MapElement(PATH) {};
 };
 
-class Wall : public MapElement
-{
+class Wall : public MapElement {
   friend class TestStudyPink;
 
  public:
-  Wall(): MapElement(WALL) {};
+  Wall() : MapElement(WALL) {};
 };
 
-class FakeWall : public MapElement
-{
+class FakeWall : public MapElement {
   friend class TestStudyPink;
 
  private:
   int req_exp;
-
  public:
   FakeWall(int in_req_exp);
   int getReqExp() const;
 };
 
-class Map
-{
+class Map {
   friend class TestStudyPink;
 
  private:
   int num_rows, num_cols;
   // addition
   MapElement ***map;
-
  public:
   Map(int num_rows, int num_cols, int num_walls, Position *array_walls, int num_fake_walls, Position *array_fake_walls);
   ~Map();
@@ -146,13 +148,11 @@ class Map
   bool isValid(const Position &pos, MovingObject *mv_obj) const;
 };
 
-class Position
-{
+class Position {
   friend class TestStudyPink;
 
  private:
   int r, c;
-
  public:
   static const Position npos;
   Position(int r = 0, int c = 0);
@@ -166,8 +166,7 @@ class Position
   bool isEqual(Position pos) const;
 };
 
-class MovingObject
-{
+class MovingObject {
   friend class TestStudyPink;
 
  protected:
@@ -175,26 +174,25 @@ class MovingObject
   Position pos;
   Map *map;
   string name;
-
  public:
   MovingObject(int index, const Position pos, Map *map, const string &name = "");
   virtual ~MovingObject();
   virtual Position getNextPosition() = 0;
   Position getCurrentPosition() const;
-  virtual void move() =0;
+  virtual void move() = 0;
   virtual string str() const = 0;
   // addition
   virtual MovingObjectType getObjectType() const = 0;
 };
 
-class Character : public MovingObject
-{
+class Character : public MovingObject {
   friend class TestStudyPink;
 
  public:
+  bool usedCard;
   Character(int index, const Position pos, Map *map, const string &name = "");
   // addition
-  virtual void move(){
+  virtual void move() {
     Position temp = getNextPosition();
     if (!temp.isEqual(Position::npos)) pos = temp;
   };
@@ -214,8 +212,7 @@ class Character : public MovingObject
   virtual bool meet(RobotC *robotC) {};
 };
 
-class Sherlock : public Character
-{
+class Sherlock : public Character {
   friend class TestStudyPink;
 
  private:
@@ -225,7 +222,6 @@ class Sherlock : public Character
   string moving_rule;
   int index_moving_rule;
   BaseBag *bag;
-
  public:
   Sherlock(int index, const string &moving_rule, const Position &init_pos, Map *map, int init_hp, int init_exp);
   Position getNextPosition() override;
@@ -243,11 +239,9 @@ class Sherlock : public Character
   bool meet(RobotSW *robotSW) override;
   bool meet(RobotC *robotC) override;
   bool meet(Watson *watson);
-  ~Sherlock();
 };
 
-class Watson : public Character
-{
+class Watson : public Character {
   friend class TestStudyPink;
 
  private:
@@ -257,7 +251,6 @@ class Watson : public Character
   string moving_rule;
   int index_moving_rule;
   BaseBag *bag;
-
  public:
   Watson(int index, const string &moving_rule, const Position &init_pos, Map *map, int init_hp, int init_exp);
   Position getNextPosition() override;
@@ -273,11 +266,10 @@ class Watson : public Character
   bool meet(RobotW *robotW) override;
   bool meet(RobotSW *robotSW) override;
   bool meet(RobotC *robotC) override;
-  ~Watson();
+  bool meet(Sherlock *sherlock);
 };
 
-class Criminal : public Character
-{
+class Criminal : public Character {
   friend class TestStudyPink;
 
  private:
@@ -287,7 +279,6 @@ class Criminal : public Character
   // addition
   int count;
   Position prev_pos;
-
  public:
   Criminal(int index, const Position &init_pos, Map *map, Sherlock *sherlock, Watson *watson);
   void move() override;
@@ -296,14 +287,10 @@ class Criminal : public Character
   MovingObjectType getObjectType() const override;
   int getCount() const;
   Position getPrevPosition() const;
-  Position getCurrentPos() const {
-    return pos;
-  };
   Position getNextPosition() override;
 };
 
-class ArrayMovingObject
-{
+class ArrayMovingObject {
   friend class TestStudyPink;
 
  private:
@@ -311,7 +298,6 @@ class ArrayMovingObject
   MovingObject **arr_mv_objs;
   int count;
   int capacity;
-
  public:
   ArrayMovingObject(int capacity);
   ~ArrayMovingObject();
@@ -330,9 +316,9 @@ class ArrayMovingObject
   bool fightRobot(Character *character, Robot *robot);
 };
 
-class Configuration
-{
+class Configuration {
   friend class TestStudyPink;
+
   friend class StudyPinkProgram;
 
  private:
@@ -353,7 +339,6 @@ class Configuration
   int watson_init_exp;
   Position criminal_init_pos;
   int num_steps;
-
  public:
   Configuration(const string &filepath);
   ~Configuration();
@@ -361,8 +346,7 @@ class Configuration
 };
 
 // Robot, BaseItem, BaseBag,...
-class Robot : public MovingObject
-{
+class Robot : public MovingObject {
   friend class TestStudyPink;
 
  protected:
@@ -370,7 +354,6 @@ class Robot : public MovingObject
   BaseItem *item;
   ItemType item_type;
   Criminal *criminal;
-
  public:
   Robot(int index,
         const Position &pos,
@@ -384,16 +367,15 @@ class Robot : public MovingObject
     if (!temp.isEqual(Position::npos)) pos = temp;
   };
   virtual string str() const override;
-  virtual RobotType getType();
+  virtual RobotType getType() const;
   // addition
   static Robot *create(int index, Map *map, Criminal *criminal, Sherlock *sherlock, Watson *watson);
-  virtual int getDistance() const;
+  virtual int getDistance() const {};
+  int getDistance(Character *obj) const;
   BaseItem *getItem();
-  ~Robot();
 };
 
-class RobotC : public Robot
-{
+class RobotC : public Robot {
   friend class TestStudyPink;
 
  private:
@@ -403,22 +385,17 @@ class RobotC : public Robot
          Map *map,
          Criminal *criminal);
   Position getNextPosition();
-  void move();
-  string str() const;
   // addition
   Position criminalCaught() {
-    return criminal->getCurrentPos();
+    return criminal->getCurrentPosition();
   }
-  RobotType getType() const;
 };
 
-class RobotS : public Robot
-{
+class RobotS : public Robot {
   friend class TestStudyPink;
 
  private:
   Sherlock *sherlock;
-
  public:
   RobotS(int index,
          const Position &init_pos,
@@ -431,13 +408,11 @@ class RobotS : public Robot
   // addition
 };
 
-class RobotW : public Robot
-{
+class RobotW : public Robot {
   friend class TestStudyPink;
 
  private:
   Watson *watson;
-
  public:
   RobotW(int index,
          const Position &init_pos,
@@ -449,14 +424,12 @@ class RobotW : public Robot
   // addition
 };
 
-class RobotSW : public Robot
-{
+class RobotSW : public Robot {
   friend class TestStudyPink;
 
  private:
   Sherlock *sherlock;
   Watson *watson;
-
  public:
   RobotSW(int index,
           const Position &init_pos,
@@ -469,98 +442,93 @@ class RobotSW : public Robot
   int getDistance() const override;
 };
 
-class BaseItem
-{
+class BaseItem {
   friend class TestStudyPink;
 
  public:
+  BaseItem() {};
   virtual bool canUse(Character *obj, Robot *robot) = 0;
   virtual void use(Character *obj, Robot *robot) = 0;
-  // addition
-  BaseItem();
   virtual ItemType getType() const = 0;
   virtual string str() const = 0;
-  ~BaseItem();
 };
 
-class MagicBook : public BaseItem
-{
+class MagicBook : public BaseItem {
   friend class TestStudyPink;
 
  public:
-  bool canUse(Character *obj, Robot *robot);
-  void use(Character *obj, Robot *robot);
-  // addition
-  ItemType getType() const;
-  string str() const;
+  MagicBook() = default;
+  bool canUse(Character *obj, Robot *robot) override;
+  void use(Character *obj, Robot *robot) override;
+  ItemType getType() const override;
+  string str() const override;
 };
 
-class EnergyDrink : public BaseItem
-{
+class EnergyDrink : public BaseItem {
   friend class TestStudyPink;
 
  public:
-  bool canUse(Character *obj, Robot *robot);
-  void use(Character *obj, Robot *robot);
-  // addition
-  ItemType getType() const;
-  string str() const;
+  EnergyDrink() = default;
+  bool canUse(Character *obj, Robot *robot) override;
+  void use(Character *obj, Robot *robot) override;
+  ItemType getType() const override;
+  string str() const override;
 };
 
-class FirstAid : public BaseItem
-{
+class FirstAid : public BaseItem {
+  friend class TestStudyPink;
+
+ public :
+  FirstAid() = default;
+  bool canUse(Character *obj, Robot *robot) override;
+  void use(Character *obj, Robot *robot) override;
+  ItemType getType() const override;
+  string str() const override;
+};
+
+class ExcemptionCard : public BaseItem {
   friend class TestStudyPink;
 
  public:
-  bool canUse(Character *obj, Robot *robot);
-  void use(Character *obj, Robot *robot);
-  // addition
-  ItemType getType() const;
-  string str() const;
+  ExcemptionCard() = default;
+  bool canUse(Character *obj, Robot *robot) override;
+  void use(Character *obj, Robot *robot) override;
+  ItemType getType() const override;
+  string str() const override;
 };
 
-class ExcemptionCard : public BaseItem
-{
-  friend class TestStudyPink;
-
- public:
-  bool canUse(Character *obj, Robot *robot);
-  void use(Character *obj, Robot *robot);
-  // addition
-  ItemType getType() const;
-  string str() const;
-};
-
-class PassingCard : public BaseItem
-{
+class PassingCard : public BaseItem {
   friend class TestStudyPink;
 
  private:
   string challenge;
-
  public:
   PassingCard(int i, int j);
-  bool canUse(Character *obj, Robot *robot);
-  void use(Character *obj, Robot *robot);
+  PassingCard(const PassingCard *other) {
+    challenge = other->challenge;
+  };
+  bool canUse(Character *obj, Robot *robot) override;
+  void use(Character *obj, Robot *robot) override;
   // addition
-  ItemType getType() const;
-  string str() const;
+  ItemType getType() const override;
+  string str() const override;
+  RobotType getRobotType() const;
 };
 
-class BaseBag
-{
+class BaseBag {
   friend class TestStudyPink;
 
  protected:
   // addition
-  class Node
-  {
+  class Node {
    public:
     BaseItem *item;
     Node *next;
-
    public:
-    Node(BaseItem *item, Node *next = nullptr) : item(item), next(next) {}
+    Node(BaseItem *item) {
+      this->item = item;
+      this->next = nullptr;
+    }
   };
 
  protected:
@@ -569,7 +537,6 @@ class BaseBag
   int size;
   int capacity;
   Node *head;
-
  public:
   virtual bool insert(BaseItem *item);
   virtual BaseItem *get();
@@ -581,34 +548,44 @@ class BaseBag
   virtual ~BaseBag();
   bool checkItem(ItemType itemType);
   bool isFull() const;
+  int havePassingCard;
+  int haveExcemptionCard;
+  Robot *robot_check;
+  virtual bool tradingConditionCheck() {};
+  void setRobotCheck(Robot *robot);
+  void resetRobotCheck() { robot_check = nullptr; }
+  bool swapWithHead(Node *node);
 };
+
 // addition
-class SherlockBag : public BaseBag
-{
+class SherlockBag : public BaseBag {
   friend class TestStudyPink;
 
  private:
   Sherlock *sherlock;
-
  public:
   SherlockBag(Sherlock *character);
-  BaseItem *get();
+  bool tradingConditionCheck() override {
+    if (havePassingCard) return true;
+    else return false;
+  }
 };
+
 // addition
-class WatsonBag : public BaseBag
-{
+class WatsonBag : public BaseBag {
   friend class TestStudyPink;
 
  private:
   Watson *watson;
-
  public:
   WatsonBag(Watson *character);
-  BaseItem *get();
+  bool tradingConditionCheck() override {
+    if (havePassingCard) return true;
+    else return false;
+  }
 };
 
-class StudyPinkProgram
-{
+class StudyPinkProgram {
   friend class TestStudyPink;
 
  private:
@@ -620,30 +597,25 @@ class StudyPinkProgram
   Map *map;
   ArrayMovingObject *arr_mv_objs;
   // addition
+  bool stopChecker;
   string outputFile;
-
  public:
   StudyPinkProgram(const string &config_file_path);
   bool isStop() const;
-  void printResult() const
-  {
+  void printResult() const {
     OUTPUT.open(outputFile, std::ios::app);
-    if (sherlock->getCurrentPosition().isEqual(criminal->getCurrentPosition()))
-    {
+    if (sherlock->getCurrentPosition().isEqual(criminal->getCurrentPosition())) {
       OUTPUT << "Sherlock caught the criminal" << endl;
     }
-    else if (watson->getCurrentPosition().isEqual(criminal->getCurrentPosition()))
-    {
+    else if (watson->getCurrentPosition().isEqual(criminal->getCurrentPosition())) {
       OUTPUT << "Watson caught the criminal" << endl;
     }
-    else
-    {
+    else {
       OUTPUT << "The criminal escaped" << endl;
     }
     OUTPUT.close();
   }
-  void printStep(int si) const
-  {
+  void printStep(int si) const {
     OUTPUT.open(outputFile, std::ios::app);
     OUTPUT << "Step: " << setw(4) << setfill('0') << si
            << "--"
@@ -653,8 +625,7 @@ class StudyPinkProgram
   void run(bool verbose);
   ~StudyPinkProgram();
   // addition
-  void setOutputFile(string outputFile)
-  {
+  void setOutputFile(string outputFile) {
     this->outputFile = outputFile;
   }
 };

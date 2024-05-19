@@ -5,10 +5,17 @@
 /// Complete the following functions
 /// DO NOT modify any parameters in the functions.
 ////////////////////////////////////////////////////////////////////////
-// ! Nội dung task cũ cần bỏ vào (chỉ bỏ dòng #include "moving.h")
-// ! Các mục sửa đổi:
-// ! HÀM KHỞI TẠO: Sherlock và Watson thêm thuộc tính bag, Robot thêm thuộc tính để sinh item_type
-// !
+// TODO:
+// Chỉnh lại di chuyển của RobotC (gợi ý: thực hiện hàm getPrevPosition cho Criminal)
+// Mô tả về các meet thay đổi (đã được confirm 90%)
+// File study_in_pink2.h những phần trước "addition" là gốc của đề (không thay đổi)
+// Chỉnh tên thuộc tính hp và exp của Sherlock và Watson
+// Position có nạp chồng 2 hàm isEqual
+// isStop kiểm tra vị trí Sherlock, Watson với Criminal và hp của Sherlock, Watson
+// Hàm run chú ý chỉnh từ hàm run() gốc (vị trí gọi printResult và printStep)
+// NOTE:
+// chú ý các phần addition nên sửa đổi để tránh đạo code
+// nộp Bkel cần xóa đổi lại 2 hàm printResult và printStep gốc, xóa thuộc tính outputFile
 
 const Position Position::npos = Position(-1, -1);
 
@@ -211,32 +218,32 @@ Position Criminal::getNextPosition() {
 Robot::Robot(int index, const Position &pos, Map *map, Criminal *criminal, const string &name)
     : MovingObject(index, pos, map, name), criminal(criminal) //! khác
 {
-  //tính toán loại item_type
+  //tính toán loại item
   int p = reduceNum(pos.getRow() * pos.getCol());
   switch (p) {
     case 0:
     case 1: {
-      item_type = MAGIC_BOOK;
+      item = new MagicBook();
       break;
     }
     case 2:
     case 3: {
-      item_type = ENERGY_DRINK;
+      item = new EnergyDrink();
       break;
     }
     case 4:
     case 5: {
-      item_type = FIRST_AID;
+      item = new FirstAid();
       break;
     }
     case 6:
     case 7: {
-      item_type = EXCEMPTION_CARD;
+      item = new ExcemptionCard();
       break;
     }
     case 8:
     case 9: {
-      item_type = PASSING_CARD;
+      item = new PassingCard(pos.getRow(), pos.getCol());
       break;
     }
   }
@@ -639,7 +646,6 @@ Configuration::Configuration(const string &filepath) {
   inputFile.close();
 }
 
-
 Configuration::~Configuration() {
   delete[] arr_walls;
   delete[] arr_fake_walls;
@@ -686,14 +692,14 @@ string MagicBook::str() const {
 }
 
 bool MagicBook::canUse(Character *obj, Robot *robot) {
-  //Sau khi đấm Robot, EXP
+  //Sau khi đấm Robot, exp
   if ((obj)->getEXP() <= 350 && robot == nullptr)
     return true;
   else return false;
 }
 
 void MagicBook::use(Character *obj, Robot *robot) {
-  //Increase EXP by 25%
+  //Increase exp by 25%
   int exp = obj->getEXP();
   exp += ceil((double) exp * 0.25);
   obj->setEXP(exp);
@@ -710,7 +716,7 @@ string EnergyDrink::str() const {
 }
 
 bool EnergyDrink::canUse(Character *obj, Robot *robot) {
-  // *Sau khi đấm Robot, HP
+  // *Sau khi đấm Robot, hp
   int hp = obj->getHP();
   if (hp <= 100 && robot == nullptr)
     return true;
@@ -737,7 +743,7 @@ string FirstAid::str() const {
 
 bool FirstAid::canUse(Character *obj, Robot *robot) {
   // điều kiện sử dụng
-  // *Sau khi đấm Robot, EXP || HP
+  // *Sau khi đấm Robot, exp || hp
   if (((obj->getEXP() <= 350) || obj->getHP() <= 100) && robot == nullptr)
     return true;
   return false;
@@ -762,7 +768,7 @@ string ExcemptionCard::str() const {
 
 bool ExcemptionCard::canUse(Character *obj, Robot *robot) {
   // điều kiện sử dụng
-  // *Trước khi đấm Robot, Sherlock, HP lẻ
+  // *Trước khi đấm Robot, Sherlock, hp lẻ
   if (obj->getObjectType() != SHERLOCK) return false;
   if (obj->getHP() % 2 == 1 && robot != nullptr)
     return true;
@@ -806,7 +812,7 @@ string PassingCard::str() const {
 
 bool PassingCard::canUse(Character *obj, Robot *robot) {
   // điều kiện sử dụng
-  // *Trước khi đấm Robot, Watson, HP chẵn
+  // *Trước khi đấm Robot, Watson, hp chẵn
   if (obj->getObjectType() != WATSON) return false;
   if (obj->getHP() % 2 == 0 && robot != nullptr)
     return true;
@@ -819,7 +825,7 @@ RobotType PassingCard::getRobotType() const {
   return ALL;
 }
 void PassingCard::use(Character *obj, Robot *robot) {
-  //tương tự ExcemptionCard khi thuộc tính challenge thích hợp, ngược lại sẽ trừ EXP
+  //tương tự ExcemptionCard khi thuộc tính challenge thích hợp, ngược lại sẽ trừ exp
   if ((this->getRobotType() != robot->getType()) && this->getRobotType() != ALL) {
     int exp = obj->getEXP();
     exp -= 50;
@@ -871,32 +877,11 @@ bool BaseBag::insert(BaseItem *item) {
   return true;
 }
 
-BaseItem *SherlockBag::get(ItemType itemType) {
+BaseItem *BaseBag::get(ItemType itemType) {
   // Tìm và trả về item_type tương ứng với itemType
   Node *node = head;
   while (node != nullptr) {
-    if (node->item->getType() == itemType && node->item->canUse(sherlock, robot_check)) {
-      if (swapWithHead(node)) {
-        BaseItem *item = head->item;
-        head = head->next;
-        --size;
-        if (itemType == ItemType::PASSING_CARD) --havePassingCard;
-        if (itemType == ItemType::EXCEMPTION_CARD) --haveExcemptionCard;
-        resetRobotCheck();
-        return item;
-      }
-      else return nullptr;
-    }
-    node = node->next;
-  }
-  return nullptr;
-}
-
-BaseItem *WatsonBag::get(ItemType itemType) {
-  // Tìm và trả về item_type tương ứng với itemType
-  Node *node = head;
-  while (node != nullptr) {
-    if (node->item->getType() == itemType && node->item->canUse(watson, robot_check)) {
+    if (node->item->getType() == itemType && node->item->canUse(obj, robot_check)) {
       if (swapWithHead(node)) {
         BaseItem *item = head->item;
         head = head->next;
@@ -931,14 +916,15 @@ string BaseBag::str() const {
 SherlockBag::SherlockBag(Sherlock *character)
     : BaseBag(13) {
   this->sherlock = character;
+  this->obj = sherlock;
 }
 
-BaseItem *SherlockBag::get() {
+BaseItem *BaseBag::get() {
   // tìm và trả về item_type SHERLOCK CÓ THỂ SỬ DỤNG gấn đầu túi nhất, đảo lên đầu và xóa khỏi Linked List (cập nhật head)
   BaseItem *item = nullptr;
   Node *node = head;
   while (node != nullptr) {
-    if (node->item->canUse(sherlock, nullptr)) {
+    if (node->item->canUse(obj, nullptr)) {
       if (swapWithHead(node)) {
         item = head->item;
         head = head->next;
@@ -956,26 +942,8 @@ BaseItem *SherlockBag::get() {
 WatsonBag::WatsonBag(Watson *character)
     : BaseBag(15) {
   this->watson = character;
+  this->obj = watson;
 }
-BaseItem *WatsonBag::get() {
-  // tìm và trả về item_type SHERLOCK CÓ THỂ SỬ DỤNG gấn đầu túi nhất, đảo lên đầu và xóa khỏi Linked List (cập nhật head)
-  BaseItem *item = nullptr;
-  Node *node = head;
-  while (node != nullptr) {
-    if (node->item->canUse(watson, nullptr)) {
-      if (swapWithHead(node)) {
-        item = head->item;
-        head = head->next;
-        --size;
-        return item;
-      }
-      else return nullptr;
-    }
-    node = node->next;
-  }
-  return nullptr;
-}
-
 //Extra function
 bool BaseBag::isFull() const {
   return size == capacity;
@@ -1024,7 +992,6 @@ StudyPinkProgram::StudyPinkProgram(const string &config_file_path) {
   arr_mv_objs->add(criminal);
   arr_mv_objs->add(sherlock);
   arr_mv_objs->add(watson);
-  stopChecker = false;
 }
 StudyPinkProgram::~StudyPinkProgram() {
 //  delete map;
@@ -1032,119 +999,31 @@ StudyPinkProgram::~StudyPinkProgram() {
 //  delete arr_mv_objs;
 }
 
-void StudyPinkProgram::printMap(ofstream &OUTPUT) const {
-  for (int i = -1; i < config->map_num_cols; i++) {
-    if (i == -1)
-      OUTPUT << setw(7) << ""
-             << "|";
-    else
-      OUTPUT << setw(7) << i << "|";
+bool StudyPinkProgram::isStop() const {
+  if (stopChecker || sherlock->getHP() == 0 || watson->getHP() == 0) {
+    return true;
   }
-  OUTPUT << endl;
-  for (int i = 0; i < config->map_num_rows; i++) {
-    OUTPUT << setw(7) << i << "|";
-    for (int j = 0; j < config->map_num_cols; j++) {
-      int idx = map->getElementType(i, j);
-      string nameElement[3] = {"     ", "IIIII", "-----"};
-      string nameChar[4] = {"S", "W", "C", "R"};
-      string robotName[4] = {"0", "1", "2", "3"};
-      string cellValue = nameElement[idx];
-      Position charPos(i, j);
-      for (int k = 0; k < arr_mv_objs->size(); k++) {
-        if (arr_mv_objs->get(k)->getCurrentPosition().isEqual(charPos)) {
-          if (cellValue == "     " || cellValue == "-----" || cellValue == "IIIII")
-            cellValue = "";
-          idx = arr_mv_objs->get(k)->getObjectType();
-          if (idx == 3) {
-            MovingObject *temp = arr_mv_objs->get(k);
-            while (cellValue[cellValue.length() - 1] == ' ') {
-              cellValue = cellValue.substr(0, cellValue.length() - 1);
-            }
-            cellValue += robotName[dynamic_cast<Robot *>(temp)->getType()];
-            continue;
-          }
-          cellValue += nameChar[idx];
-        }
-      }
-      if (!(cellValue == "     " || cellValue == "-----" || cellValue == "IIIII"))
-        cellValue = "" + cellValue + "";
-      OUTPUT << setw(7) << cellValue << "|";
-    }
-    OUTPUT << endl;
-  }
+  return false;
 }
-void StudyPinkProgram::run(ofstream &OUTPUT) {
-  if (!OUTPUT.is_open()) {
-    return;
-  }
-  OUTPUT << config->str() << endl;
-  stopChecker = sherlock->getHP() == 0 || watson->getHP() == 0;
-  for (int istep = 0; istep < config->num_steps && !stopChecker; ++istep) {
-    int roundSize = arr_mv_objs->size();
-    for (int i = 0; i < roundSize && !stopChecker; ++i) {
-      OUTPUT << endl
-             << "*********************************************************" << endl;
-      OUTPUT << "ROUND : " << istep << " - TURN : " << i << endl;
-      stringstream ss(arr_mv_objs->str());
-      string lineArr = "";
-      getline(ss, lineArr, 'C');
-      OUTPUT << lineArr << "]" << endl;
-      getline(ss, lineArr, ']');
-      OUTPUT << "\tC" << lineArr << "]" << endl;
-      while (getline(ss, lineArr, ']')) {
-        if (lineArr.length() > 0)
-          OUTPUT << "\t" << lineArr.substr(1) << "]" << endl;
-      }
-      if (i == 0)
-        OUTPUT << "Criminal current count : " << criminal->getCount() << endl;
-      if (i == 1)
-        OUTPUT << "Sherlock move direction : "
-               << config->sherlock_moving_rule[istep % config->sherlock_moving_rule.length()] << endl;
-      if (i == 2)
-        OUTPUT << "Watson move direction : " << config->watson_moving_rule[istep % config->watson_moving_rule.length()]
-               << endl;
-      if (arr_mv_objs->get(i)->getObjectType() == ROBOT) {
-        BaseItem *item = dynamic_cast<Robot *>(arr_mv_objs->get(i))->getItem();
-        if (item) {
-          OUTPUT << "Robot holding item_type : " << item->str() << endl;
-          // delete item_type;
-        }
-      }
-      MovingObject *robot = nullptr;
-      if (arr_mv_objs->get(i)->getObjectType() == MovingObjectType::CRIMINAL) {
-        robot = Robot::create(arr_mv_objs->size(), map, criminal, sherlock, watson);
-      }
+
+void StudyPinkProgram::run(bool verbose) {
+  for (int istep = 0; istep < config->num_steps; ++istep) {
+    for (int i = 0; i < arr_mv_objs->size(); ++i) {
       arr_mv_objs->get(i)->move();
       stopChecker = arr_mv_objs->checkMeet(i);
-      if (i == 0)
-        OUTPUT << "Criminal count after moving : " << criminal->getCount() << endl;
-      if (robot != nullptr) {
-        if (criminal->getCount() % 3 == 0 && criminal->getCount() > 0) {
-          arr_mv_objs->add(robot);
-        }
-        else {
-          // delete robot;
-        }
+      if (isStop()) {
+        printStep(istep);
+        break;
       }
-      printMap(OUTPUT);
-      OUTPUT << "---------------" << endl
-             << "LOG AFTER MOVE : " << endl
-             << "Sherlock HP_" << sherlock->getHP() << " EXP_" << sherlock->getEXP() << endl
-             << "Watson HP_" << watson->getHP() << " EXP_" << watson->getEXP() << endl
-             << "SherlockBag : " << sherlock->getBag()->str() << endl
-             << "WatsonBag : " << watson->getBag()->str() << endl;
+      if (criminal->getCount() % 3 == 0 && criminal->getCount() > 0) {
+        arr_mv_objs->add(Robot::create(arr_mv_objs->size(), map, criminal, sherlock, watson));
+      }
+      if (verbose) {
+        printStep(istep);
+      }
     }
   }
-  OUTPUT << "---------------" << endl
-         << "RESULT : ";
-  if (watson->getHP() == 0)
-    OUTPUT << "Watson can not continue the journey";
-  else if (sherlock->getHP() == 0)
-    OUTPUT << "Sherlock can not continue the journey";
-  else if (stopChecker)
-    OUTPUT << "The Criminal was caught";
-  else
-    OUTPUT << "The Criminal escaped";
+  printResult();
 }
 
 // *------------------------------------------------------------------
@@ -1153,7 +1032,7 @@ void StudyPinkProgram::run(ofstream &OUTPUT) {
 // !-----------------------------------
 // ! Lưu ý về việc xét thông số khi tăng giảm
 // ! Các thay đổi thông số là dựa trên thông số hiện tại
-// ! Các thông số không phải số nguyên THỰC HIỆN LÀM TRÒN LÊN -> NHÂN VẬT CHỈ HI SINH KHI INIT HP = 0
+// ! Các thông số không phải số nguyên THỰC HIỆN LÀM TRÒN LÊN -> NHÂN VẬT CHỈ HI SINH KHI INIT hp = 0
 // !-----------------------------------
 // *CLASS: ArrayMovingObject
 bool ArrayMovingObject::fightRobot(Character *character, Robot *robot) {
@@ -1308,13 +1187,13 @@ bool Sherlock::meet(RobotS *robotS) {
   this->getBag()->resetRobotCheck();
   if (itemUse) itemUse->use(this, robotS);
   // Xử lý khi gặp robot S
-  if (EXP > 400) {
+  if (exp > 400) {
     bag->insert(robotS->getItem());
     usedCard = false;
     return true;
   }
   else {
-    if (!usedCard) EXP -= floor((double) EXP * 0.1);
+    if (!usedCard) exp -= floor((double) exp * 0.1);
     else usedCard = false;
     postFight();
     return false;
@@ -1333,15 +1212,15 @@ bool Sherlock::meet(RobotSW *robotSW) {
   BaseItem *itemUse = preFight(robotSW);
   this->getBag()->resetRobotCheck();
   if (itemUse) itemUse->use(this, robotSW);
-  if ((EXP > 300) && (HP > 335)) {
+  if ((exp > 300) && (hp > 335)) {
     bag->insert(robotSW->getItem());
     usedCard = false;
     return true;
   }
   else {
     if (!usedCard) {
-      HP -= floor((double) HP * 0.15);
-      EXP -= floor((double) EXP * 0.15);
+      hp -= floor((double) hp * 0.15);
+      exp -= floor((double) exp * 0.15);
     }
     else usedCard = false;
     postFight();
@@ -1355,7 +1234,7 @@ bool Sherlock::meet(RobotC *robotC) {
   BaseItem *itemUse = preFight(robotC);
   this->getBag()->resetRobotCheck();
   usedCard = false;
-  if (EXP > 500) {
+  if (exp > 500) {
     setPos(robotC->criminalCaught());
     postFight();
     return true;
@@ -1396,36 +1275,6 @@ bool Sherlock::meet(Watson *watson) {
   return true;
 }
 
-
-//bool Character::meet(Character *swapper) {
-//  // Xử lý trao đổi thẻ ExcemptionCard
-//  // KHI CẢ 2 ĐỀU CÓ THỂ TRAO ĐỔI && ĐỔI TOÀN BỘ NẾU NHIỀU HƠN 1 (KỂ CẢ KHI ĐỐI PHƯƠNG)
-//  BaseItem *item_type = nullptr;
-//  Sherlock *sherlock =
-//      (swapper->getObjectType() == SHERLOCK) ? dynamic_cast<Sherlock *>(swapper) : dynamic_cast<Sherlock *>(this);
-//  Watson
-//      *watson = (swapper->getObjectType() == WATSON) ? dynamic_cast<Watson *>(swapper) : dynamic_cast<Watson *>(this);
-//  //Check if it meets the trading condition
-//  if (!(sherlock->getBag()->tradingConditionCheck()) || !(watson->getBag()->tradingConditionCheck())) return false;
-//  //Sherlock giving PassingCard to Watson
-//  while (!(watson->getBag()->isFull())) {
-//    item_type = watson->getBag()->get(PASSING_CARD);
-//    if (item_type != nullptr) {
-//      sherlock->getBag()->insert(item_type);
-//    }
-//    else break;
-//  }
-//  //Watson giving ExcemptionCard to Sherlock
-//  while (!(sherlock->getBag())->isFull()) {
-//    item_type = sherlock->getBag()->get(EXCEMPTION_CARD);
-//    if (item_type != nullptr) {
-//      watson->getBag()->insert(item_type);
-//    }
-//    else break;
-//  }
-//  return true;
-//}
-
 // *CLASS: Watson
 // ! Lưu ý: PassingCard được dùng khi GẶP ROBOT để bỏ qua thử thách nếu đúng loại thẻ
 // ! Thực hiện get từ bag sau khi insert item_type
@@ -1441,14 +1290,14 @@ bool Watson::meet(RobotW *robotW) {
   BaseItem *itemUse = preFight(robotW);
   if (itemUse) itemUse->use(this, robotW);
   // Xử lý khi gặp robot S
-  if (HP > 350) {
+  if (hp > 350) {
     bag->insert(robotW->getItem());
     postFight();
     return true;
   }
   else {
     if (!usedCard) {
-      HP -= floor((double) HP * 0.05);
+      hp -= floor((double) hp * 0.05);
     }
   }
   postFight();
@@ -1462,14 +1311,14 @@ bool Watson::meet(RobotSW *robotSW) {
   BaseItem *itemUse = preFight(robotSW);
   if (itemUse) itemUse->use(this, robotSW);
   // Xử lý khi gặp robot Sx
-  if (((HP > 165) && (EXP > 600)) || usedCard == true) {
+  if (((hp > 165) && (exp > 600)) || usedCard == true) {
     bag->insert(robotSW->getItem());
     usedCard = false;
     return true;
   }
   else {
-    HP -= floor((double) HP * 0.15);
-    EXP -= floor((double) EXP * 0.15);
+    hp -= floor((double) hp * 0.15);
+    exp -= floor((double) exp * 0.15);
     postFight();
     return false;
   }
@@ -1649,23 +1498,23 @@ MovingObjectType Sherlock::getObjectType() const {
 }
 
 int Sherlock::getHP() const {
-  return HP;
+  return hp;
 }
 
 int Sherlock::getEXP() const {
-  return EXP;
+  return exp;
 }
 
 void Sherlock::setHP(int hp) {
-  HP = hp;
-  if (HP < 0) HP = 0;
-  if (HP > 500) HP = 500;
+  hp = hp;
+  if (hp < 0) hp = 0;
+  if (hp > 500) hp = 500;
 }
 
 void Sherlock::setEXP(int exp) {
-  EXP = exp;
-  if (EXP < 0) EXP = 0;
-  if (EXP > 900) EXP = 900;
+  exp = exp;
+  if (exp < 0) exp = 0;
+  if (exp > 900) exp = 900;
 }
 BaseBag *Sherlock::getBag() const {
   return bag;
@@ -1682,23 +1531,23 @@ MovingObjectType Watson::getObjectType() const {
 }
 
 int Watson::getHP() const {
-  return HP;
+  return hp;
 }
 
 int Watson::getEXP() const {
-  return EXP;
+  return exp;
 }
 
 void Watson::setHP(int hp) {
-  HP = hp;
-  if (HP < 0) HP = 0;
-  if (HP > 500) HP = 500;
+  hp = hp;
+  if (hp < 0) hp = 0;
+  if (hp > 500) hp = 500;
 }
 
 void Watson::setEXP(int exp) {
-  EXP = exp;
-  if (EXP < 0) EXP = 0;
-  if (EXP > 900) EXP = 900;
+  exp = exp;
+  if (exp < 0) exp = 0;
+  if (exp > 900) exp = 900;
 }
 BaseBag *Watson::getBag() const {
   return bag;
@@ -1710,7 +1559,7 @@ int calculateDistance(const Position &pos1, const Position &pos2) {
   //calculate Manhattan distance of 2 Position
   return abs(pos1.getRow() - pos2.getRow()) + abs(pos1.getCol() - pos2.getCol());
 }
-Position Criminal::getPrevPosition() const {}Position() const {
+Position Criminal::getPrevPosition() const {
   return prev_pos;
 }
 void Criminal::move() {
@@ -1776,8 +1625,8 @@ RobotType Robot::getType() const {
   return robot_type;
 }
 
-BaseItem *Robot::getItem() const {
-  switch (this->item_type) {
+BaseItem *Robot::getItem() {
+  switch (item->getType()) {
     case MAGIC_BOOK:
       return new MagicBook();
     case ENERGY_DRINK:
@@ -1785,10 +1634,13 @@ BaseItem *Robot::getItem() const {
     case FIRST_AID:
       return new FirstAid();
     case PASSING_CARD:
-      return new PassingCard(pos.getRow(), pos.getCol());
+      return new PassingCard(dynamic_cast<PassingCard *>(item));
     case EXCEMPTION_CARD:
       return new ExcemptionCard();
   }
+}
+int Robot::getDistance(Character *obj) const {
+  return calculateDistance(this->getCurrentPosition(), obj->getCurrentPosition());
 }
 /* Configuration functions */
 void getPosition(int &x, int &y, string input) {
@@ -1810,7 +1662,7 @@ void extractArray(Position *position, string input, int numPosition) {
     int breakpoint = input.find(";");
     string Pos = getSubString(input, 0, breakpoint - 1);
     input = getSubString(input, breakpoint + 1, input.length());
-    position[i].getPos(Pos);
+    position[i] = Position(Pos);
     if (breakpoint == -1) break;
   }
 }
@@ -1832,21 +1684,6 @@ MovingObject::~MovingObject() {
   // Here you can add any cleanup code that is needed for your class
 }
 
-Character::~Character() {
-  // Here you can add any cleanup code that is needed for your class
-}
-
-Watson::~Watson() {
-  // Here you can add any cleanup code that is needed for your class
-}
-
-Criminal::~Criminal() {
-  // Here you can add any cleanup code that is needed for your class
-}
-
-Sherlock::~Sherlock() {
-  // Here you can add any cleanup code that is needed for your class
-}
 
 
 
