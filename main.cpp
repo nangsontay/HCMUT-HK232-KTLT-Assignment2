@@ -228,20 +228,17 @@ class TestStudyInPink {
     OUTPUT << "isFull: " << testArray->isFull() << endl;
     OUTPUT << "ArrayMovingObject str: " << testArray->str() << endl;
     delete testArray;
-    delete sherlock;
-    delete watson;
-    delete criminal;
   }
   static void testAll(string inputFile, string outputFile) {
     StudyPinkProgram testStudyPinkProgram(inputFile);
-    testStudyPinkProgram.run(true);
+    testStudyPinkProgram.run(true, OUTPUT);
   }
 };
 
 int main(int argc, char *argv[]) {
   cout << "Start program assignments 2 KTLT" << endl;
   cout << "Running test : ";
-  int start = 0, end = 100;
+  int start = 0, end = 10000;
   string folderr = "testcase/output/output";
   // string folderr = "testcase/expect/expect";
   if (start == 0) {

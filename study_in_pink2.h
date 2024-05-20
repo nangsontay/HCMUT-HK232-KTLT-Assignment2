@@ -12,13 +12,11 @@
 #define _H_STUDY_IN_PINK_2_H_
 #include "main.h"
 
-
 ////////////////////////////////////////////////////////////////////////
 /// STUDENT'S ANSWER BEGINS HERE
 /// Complete the following functions
 /// DO NOT modify any parameters in the functions.
 ////////////////////////////////////////////////////////////////////////
-
 
 
 // Forward declaration
@@ -104,7 +102,7 @@ class MapElement {
   ElementType type;
  public:
   MapElement(ElementType in_type);
-  ~MapElement() {};
+  ~MapElement() = default;
   virtual ElementType getType() const;
 };
 
@@ -176,7 +174,7 @@ class MovingObject {
   string name;
  public:
   MovingObject(int index, const Position pos, Map *map, const string &name = "");
-  virtual ~MovingObject();
+  virtual ~MovingObject() {};
   virtual Position getNextPosition() = 0;
   Position getCurrentPosition() const;
   virtual void move() = 0;
@@ -192,31 +190,28 @@ class Character : public MovingObject {
   bool usedCard;
   Character(int index, const Position pos, Map *map, const string &name = "");
   // addition
-  virtual void move() {
-    Position temp = getNextPosition();
-    if (!temp.isEqual(Position::npos)) pos = temp;
-  };
+  virtual void move();
   virtual Position getNextPosition() = 0;
-  virtual int getHP() const {};
-  virtual int getEXP() const {};
+  virtual int getHP() const { return 0; }
+  virtual int getEXP() const { return 0; }
   virtual void setHP(int hp) {};
   virtual void setEXP(int exp) {};
   virtual string str() const = 0;
   virtual MovingObjectType getObjectType() const = 0;
-  virtual BaseBag *getBag() const {};
+  virtual BaseBag *getBag() const { return nullptr; };
   BaseItem *preFight(Robot *robot);
   void postFight();
-  virtual bool meet(RobotS *robotS) {};
-  virtual bool meet(RobotW *robotW) {};
-  virtual bool meet(RobotSW *robotSW) {};
-  virtual bool meet(RobotC *robotC) {};
+  virtual bool meet(RobotS *robotS) { return false; }
+  virtual bool meet(RobotW *robotW) { return false; }
+  virtual bool meet(RobotSW *robotSW) { return false; }
+  virtual bool meet(RobotC *robotC) { return false; }
+  ~Character() {};
 };
 
 class Sherlock : public Character {
   friend class TestStudyPink;
 
  private:
-  // TODO
   int hp, exp;
   // addition
   string moving_rule;
@@ -239,6 +234,7 @@ class Sherlock : public Character {
   bool meet(RobotSW *robotSW) override;
   bool meet(RobotC *robotC) override;
   bool meet(Watson *watson);
+  ~Sherlock();
 };
 
 class Watson : public Character {
@@ -267,6 +263,7 @@ class Watson : public Character {
   bool meet(RobotSW *robotSW) override;
   bool meet(RobotC *robotC) override;
   bool meet(Sherlock *sherlock);
+  ~Watson();
 };
 
 class Criminal : public Character {
@@ -288,13 +285,13 @@ class Criminal : public Character {
   int getCount() const;
   Position getPrevPosition() const;
   Position getNextPosition() override;
+  ~Criminal() {};
 };
 
 class ArrayMovingObject {
   friend class TestStudyPink;
 
  private:
-  // TODO
   MovingObject **arr_mv_objs;
   int count;
   int capacity;
@@ -352,7 +349,6 @@ class Robot : public MovingObject {
  protected:
   RobotType robot_type;
   BaseItem *item;
-  ItemType item_type;
   Criminal *criminal;
  public:
   Robot(int index,
@@ -360,6 +356,7 @@ class Robot : public MovingObject {
         Map *map,
         Criminal *criminal,
         const string &name = "");
+  ~Robot();
   MovingObjectType getObjectType() const override;
   virtual Position getNextPosition() = 0;
   virtual void move() override {
@@ -370,7 +367,7 @@ class Robot : public MovingObject {
   virtual RobotType getType() const;
   // addition
   static Robot *create(int index, Map *map, Criminal *criminal, Sherlock *sherlock, Watson *watson);
-  virtual int getDistance() const {};
+  virtual int getDistance() const { return INT_MAX; };
   int getDistance(Character *obj) const;
   BaseItem *getItem();
 };
@@ -446,7 +443,8 @@ class BaseItem {
   friend class TestStudyPink;
 
  public:
-  BaseItem() {};
+  BaseItem() = default;
+  ~BaseItem() = default;
   virtual bool canUse(Character *obj, Robot *robot) = 0;
   virtual void use(Character *obj, Robot *robot) = 0;
   virtual ItemType getType() const = 0;
@@ -545,13 +543,21 @@ class BaseBag {
 
   // addition
   BaseBag(int capacity);
-  virtual ~BaseBag();
-  bool checkItem(ItemType itemType);
+  ~BaseBag() {
+    //destructor xóa các Node (Lưu ý phải xóa cả item_type trong Node đó)
+    while (size > 0) {
+      Node *temp = head;
+      head = this->head->next;
+      delete temp->item;
+      delete temp;
+      size--;
+    }
+  };
   bool isFull() const;
   int havePassingCard;
   int haveExcemptionCard;
   Robot *robot_check;
-  virtual bool tradingConditionCheck() {};
+  virtual bool tradingConditionCheck() { return false; };
   void setRobotCheck(Robot *robot);
   void resetRobotCheck() { robot_check = nullptr; }
   bool swapWithHead(Node *node);
@@ -568,6 +574,15 @@ class SherlockBag : public BaseBag {
   bool tradingConditionCheck() override {
     if (havePassingCard) return true;
     else return false;
+  }
+  ~SherlockBag() {
+    Node *temp = head;
+    while (temp != nullptr) {
+      Node *del = temp;
+      temp = temp->next;
+      delete del->item;
+      delete del;
+    }
   }
 };
 
@@ -603,32 +618,34 @@ class StudyPinkProgram {
   StudyPinkProgram(const string &config_file_path);
   bool isStop() const;
   void printResult() const {
-    OUTPUT.open(outputFile, std::ios::app);
     if (sherlock->getCurrentPosition().isEqual(criminal->getCurrentPosition())) {
-      OUTPUT << "Sherlock caught the criminal" << endl;
+      cout << "Sherlock caught the criminal" << endl;
     }
     else if (watson->getCurrentPosition().isEqual(criminal->getCurrentPosition())) {
-      OUTPUT << "Watson caught the criminal" << endl;
+      cout << "Watson caught the criminal" << endl;
     }
     else {
-      OUTPUT << "The criminal escaped" << endl;
+      cout << "The criminal escaped" << endl;
     }
-    OUTPUT.close();
   }
+
   void printStep(int si) const {
-    OUTPUT.open(outputFile, std::ios::app);
-    OUTPUT << "Step: " << setw(4) << setfill('0') << si
-           << "--"
-           << sherlock->str() << "--|--" << watson->str() << "--|--" << criminal->str() << endl;
-    OUTPUT.close();
+    cout << "Step: " << setw(4) << setfill('0') << si
+         << "--"
+         << sherlock->str() << "--|--" << watson->str() << "--|--" << criminal->str() << endl;
   }
   void run(bool verbose);
+  void run(bool verbose, ofstream &OUTPUT);
   ~StudyPinkProgram();
   // addition
+  void printInfo(int si, int i, ofstream &OUTPUT);
   void setOutputFile(string outputFile) {
     this->outputFile = outputFile;
   }
+  void printMap(ofstream &OUTPUT) const;
+  void printInfoBeforeMove(int istep, int i, ofstream &OUTPUT);
 };
+
 
 ////////////////////////////////////////////////
 /// END OF STUDENT'S ANSWER
