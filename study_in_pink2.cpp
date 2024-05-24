@@ -524,7 +524,7 @@ ArrayMovingObject::ArrayMovingObject(int capacity) {
 
 ArrayMovingObject::~ArrayMovingObject() {
   // destructor
-  for (int i = 0; i < capacity; ++i) {
+  for (int i = 3; i < capacity; ++i) {
     if (arr_mv_objs[i] != nullptr) delete arr_mv_objs[i];
   }
   delete[] arr_mv_objs;
@@ -1014,6 +1014,9 @@ StudyPinkProgram::~StudyPinkProgram() {
   delete map;
   delete config;
   delete arr_mv_objs;
+  delete criminal;
+  delete sherlock;
+  delete watson;
 }
 
 bool StudyPinkProgram::isStop() const {
@@ -1024,16 +1027,25 @@ bool StudyPinkProgram::isStop() const {
 }
 
 void StudyPinkProgram::run(bool verbose) {
+  if (isStop()) return;
   for (int istep = 0; istep < config->num_steps; ++istep) {
     for (int i = 0; i < arr_mv_objs->size(); ++i) {
+      MovingObject *robot = nullptr;
+      if (arr_mv_objs->get(i)->getObjectType() == MovingObjectType::CRIMINAL) {
+        robot = Robot::create(arr_mv_objs->size(), map, criminal, sherlock, watson);
+      }
       arr_mv_objs->get(i)->move();
       stopChecker = arr_mv_objs->checkMeet(i);
       if (isStop()) {
         printStep(istep);
-        break;
+        return;
       }
-      if (criminal->getCount() % 3 == 0 && criminal->getCount() > 0) {
-        arr_mv_objs->add(Robot::create(arr_mv_objs->size(), map, criminal, sherlock, watson));
+      if (robot != nullptr)
+        if (criminal->getCount() % 3 == 0 && criminal->getCount() > 0) {
+          arr_mv_objs->add(robot);
+        }
+      if (verbose) {
+        printStep(istep);
       }
     }
     printResult();
@@ -1397,12 +1409,8 @@ BaseItem *Character::preFight(Robot *robot) {
   BaseItem *item = nullptr;
   switch (this->getObjectType()) {
     case SHERLOCK:
-//      cout << "So exCard: " << this->getObjectType() << " " << this->getBag()->haveExcemptionCard << endl;
       if (this->getBag()->haveExcemptionCard != 0) {
-//        cout << "bag before get: " << this->getBag()->str() << endl;
         item = this->getBag()->get(EXCEMPTION_CARD);
-//        cout << "bag after get: " << this->getBag()->str() << endl;
-//        if (!item) cout << "item co get dc deo dau?\n";
       }
       else return nullptr;
       break;
@@ -1420,14 +1428,11 @@ BaseItem *Character::preFight(Robot *robot) {
   return nullptr;
 }
 void Character::postFight() {
-  //cout << "Character EXP" << this->getEXP() << endl;
   BaseItem *itemUse = this->getBag()->get();
   if (itemUse != nullptr && itemUse->canUse(this, nullptr)) {
-    if (itemUse->canUse(this, nullptr)); //cout << "ITEM CAN USE DETECTED\n";
+    itemUse->canUse(this, nullptr);
     itemUse->use(this, nullptr);
-//    cout << "USED ITEM\n";
   }
-//  cout << "Character EXP" << this->getEXP() << endl;
 }
 /* Implementations of some minor function */
 /*
@@ -1740,7 +1745,6 @@ void StudyPinkProgram::run(bool verbose, ofstream &OUTPUT) {
   if (isStop()) return;
   for (int istep = 0; istep < config->num_steps; ++istep) {
     for (int i = 0; i < arr_mv_objs->size(); ++i) {
-      //printInfoBeforeMove(istep, i, OUTPUT);
       MovingObject *robot = nullptr;
       if (arr_mv_objs->get(i)->getObjectType() == MovingObjectType::CRIMINAL) {
         robot = Robot::create(arr_mv_objs->size(), map, criminal, sherlock, watson);
@@ -1748,8 +1752,7 @@ void StudyPinkProgram::run(bool verbose, ofstream &OUTPUT) {
       arr_mv_objs->get(i)->move();
       stopChecker = arr_mv_objs->checkMeet(i);
       if (isStop()) {
-        if (verbose)
-          printInfo(istep, i, OUTPUT);
+        printInfo(istep, i, OUTPUT);
         return;
       }
       if (robot != nullptr)
@@ -1757,51 +1760,27 @@ void StudyPinkProgram::run(bool verbose, ofstream &OUTPUT) {
           arr_mv_objs->add(robot);
         }
       if (verbose) {
-        //printMap(OUTPUT);
-        //OUTPUT << istep << endl;
         printInfo(istep, i, OUTPUT);
       }
     }
   }
 }
-void StudyPinkProgram::printInfo(int si, int i, ofstream &OUTPUT) {
-  OUTPUT << endl
-         << "*************AFTER MOVE*************" << endl;
-  OUTPUT
-      << "ROUND : " << si << " - TURN : " << i << endl;
-  //cout << "ROUND : " << si << " - TURN : " << i << endl;
-  stringstream ss(arr_mv_objs->str());
-  string lineArr = "";
-  getline(ss, lineArr, 'C');
-  OUTPUT << lineArr << "]" << endl;
-  getline(ss, lineArr, ']');
-  OUTPUT << "\tC" << lineArr << "]" << endl;
-  while (getline(ss, lineArr, ']')) {
-    if (lineArr.length() > 0)
-      OUTPUT << "\t" << lineArr.substr(1) << "]" << endl;
-  }
-  OUTPUT << "Sherlock HP_" << sherlock->getHP() << " EXP_" << sherlock->getEXP() << endl
-         << "Watson HP_" << watson->getHP() << " EXP_" << watson->getEXP() << endl
-         << "SherlockBag : " << sherlock->getBag()->str() << endl
-         << "WatsonBag : " << watson->getBag()->str() << endl;
-  //printMap(OUTPUT);
-}
 void StudyPinkProgram::printMap(ofstream &OUTPUT) const {
   for (int i = -1; i < config->map_num_cols; i++) {
     if (i == -1)
-      OUTPUT << setw(5) << ""
+      OUTPUT << setw(7) << ""
              << "|";
     else
-      OUTPUT << setw(5) << i << "|";
+      OUTPUT << setw(7) << i << "|";
   }
   OUTPUT << endl;
   for (int i = 0; i < config->map_num_rows; i++) {
-    OUTPUT << setw(5) << i << "|";
+    OUTPUT << setw(7) << i << "|";
     for (int j = 0; j < config->map_num_cols; j++) {
       int idx = map->getElementType(i, j);
       string nameElement[3] = {"     ", "IIIII", "-----"};
       string nameChar[4] = {"S", "W", "C", "R"};
-      string robotName[4] = {"c", "s", "w", "2"};
+      string robotName[4] = {"0", "1", "2", "3"};
       string cellValue = nameElement[idx];
       Position charPos(i, j);
       for (int k = 0; k < arr_mv_objs->size(); k++) {
@@ -1821,46 +1800,9 @@ void StudyPinkProgram::printMap(ofstream &OUTPUT) const {
         }
       }
       if (!(cellValue == "     " || cellValue == "-----" || cellValue == "IIIII"))
-        cellValue = "(" + cellValue + ")";
-      OUTPUT << setw(5) << cellValue << "|";
+        cellValue = "" + cellValue + "";
+      OUTPUT << setw(7) << cellValue << "|";
     }
     OUTPUT << endl;
   }
-}
-void StudyPinkProgram::printInfoBeforeMove(int istep, int i, ofstream &OUTPUT) {
-  OUTPUT
-      << "*********************BEFORE MOVE***************************" << endl;
-  cout << "*********************BEFORE MOVE***************************" << endl;
-  OUTPUT << "ROUND : " << istep << " - TURN : " << i << endl;
-  cout << "ROUND : " << istep << " - TURN : " << i << endl;
-  stringstream ss(arr_mv_objs->str());
-  string lineArr = "";
-  getline(ss, lineArr, 'C');
-  OUTPUT << lineArr << "]" << endl;
-  getline(ss, lineArr, ']');
-  OUTPUT << "\tC" << lineArr << "]" << endl;
-  while (getline(ss, lineArr, ']')) {
-    if (lineArr.length() > 0)
-      OUTPUT << "\t" << lineArr.substr(1) << "]" << endl;
-  }
-  if (i == 0)
-    OUTPUT << "Criminal current count : " << criminal->getCount() << endl;
-  if (i == 1)
-    OUTPUT << "Sherlock move direction : "
-           << config->sherlock_moving_rule[istep % config->sherlock_moving_rule.length()] << endl;
-  if (i == 2)
-    OUTPUT << "Watson move direction : " << config->watson_moving_rule[istep % config->watson_moving_rule.length()]
-           << endl;
-  if (arr_mv_objs->get(i)->getObjectType() == ROBOT) {
-    BaseItem *item = dynamic_cast<Robot *>(arr_mv_objs->get(i))->getItem();
-    if (item) {
-      OUTPUT << "Robot holding item : " << item->str() << endl;
-      // delete item;
-    }
-  }
-  printMap(OUTPUT);
-  OUTPUT << "Sherlock HP_" << sherlock->getHP() << " EXP_" << sherlock->getEXP() << endl
-         << "Watson HP_" << watson->getHP() << " EXP_" << watson->getEXP() << endl
-         << "SherlockBag : " << sherlock->getBag()->str() << endl
-         << "WatsonBag : " << watson->getBag()->str() << endl;
 }
