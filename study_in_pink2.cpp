@@ -592,7 +592,9 @@ Configuration::Configuration(const string &filepath) {
       max_num_moving_objects = getintValue(input, eq + 1);
     }
     else if (key == "ARRAY_WALLS") {
-      string tmpstr = getSubString(input, eq + 2, input.length() - 3);
+      int start = input.find("[") + 1;
+      int end = input.find("]") - 1;
+      string tmpstr = getSubString(input, start, end);
       if (tmpstr.length() == 0) {
         num_walls = 0;
         continue;
@@ -602,7 +604,9 @@ Configuration::Configuration(const string &filepath) {
       extractArray(arr_walls, tmpstr, num_walls);
     }
     else if (key == "ARRAY_FAKE_WALLS") {
-      string tmpstr = getSubString(input, eq + 2, input.length() - 3);
+      int start = input.find("[") + 1;
+      int end = input.find("]") - 1;
+      string tmpstr = getSubString(input, start, end);
       if (tmpstr.length() == 0) {
         num_fake_walls = 0;
         continue;
