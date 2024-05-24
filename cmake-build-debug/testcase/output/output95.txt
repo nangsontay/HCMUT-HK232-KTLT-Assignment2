@@ -1,0 +1,66 @@
+
+*************AFTER MOVE*************
+ROUND : 0 - TURN : 0
+ArrayMovingObject[count=3;capacity=4;]
+	Criminal[index=0;pos=(3,0)]
+	Sherlock[index=1;pos=(1,5);moving_rule=RDUULRLRURL]
+	Watson[index=2;pos=(3,5);moving_rule=LDLDDDUD]
+Sherlock HP_383 EXP_506
+Watson HP_276 EXP_226
+SherlockBag : Bag[count=0;]
+WatsonBag : Bag[count=0;]
+
+*************AFTER MOVE*************
+ROUND : 0 - TURN : 1
+ArrayMovingObject[count=3;capacity=4;]
+	Criminal[index=0;pos=(3,0)]
+	Sherlock[index=1;pos=(1,5);moving_rule=RDUULRLRURL]
+	Watson[index=2;pos=(3,5);moving_rule=LDLDDDUD]
+Sherlock HP_383 EXP_506
+Watson HP_276 EXP_226
+SherlockBag : Bag[count=0;]
+WatsonBag : Bag[count=0;]
+
+*************AFTER MOVE*************
+ROUND : 0 - TURN : 2
+ArrayMovingObject[count=3;capacity=4;]
+	Criminal[index=0;pos=(3,0)]
+	Sherlock[index=1;pos=(1,5);moving_rule=RDUULRLRURL]
+	Watson[index=2;pos=(3,4);moving_rule=LDLDDDUD]
+Sherlock HP_383 EXP_506
+Watson HP_276 EXP_226
+SherlockBag : Bag[count=0;]
+WatsonBag : Bag[count=0;]
+
+*************AFTER MOVE*************
+ROUND : 1 - TURN : 0
+ArrayMovingObject[count=3;capacity=4;]
+	Criminal[index=0;pos=(2,0)]
+	Sherlock[index=1;pos=(1,5);moving_rule=RDUULRLRURL]
+	Watson[index=2;pos=(3,4);moving_rule=LDLDDDUD]
+Sherlock HP_383 EXP_506
+Watson HP_276 EXP_226
+SherlockBag : Bag[count=0;]
+WatsonBag : Bag[count=0;]
+
+*************AFTER MOVE*************
+ROUND : 1 - TURN : 1
+ArrayMovingObject[count=3;capacity=4;]
+	Criminal[index=0;pos=(2,0)]
+	Sherlock[index=1;pos=(2,5);moving_rule=RDUULRLRURL]
+	Watson[index=2;pos=(3,4);moving_rule=LDLDDDUD]
+Sherlock HP_383 EXP_506
+Watson HP_276 EXP_226
+SherlockBag : Bag[count=0;]
+WatsonBag : Bag[count=0;]
+
+*************AFTER MOVE*************
+ROUND : 1 - TURN : 2
+ArrayMovingObject[count=3;capacity=4;]
+	Criminal[index=0;pos=(2,0)]
+	Sherlock[index=1;pos=(2,5);moving_rule=RDUULRLRURL]
+	Watson[index=2;pos=(3,4);moving_rule=LDLDDDUD]
+Sherlock HP_383 EXP_506
+Watson HP_276 EXP_226
+SherlockBag : Bag[count=0;]
+WatsonBag : Bag[count=0;]
