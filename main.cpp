@@ -238,7 +238,7 @@ class TestStudyInPink {
 int main(int argc, char *argv[]) {
   cout << "Start program assignments 2 KTLT" << endl;
   cout << "Running test : ";
-  int start = 0, end = 10;
+  int start = 1, end = 1;
   string folderr = "testcase/output/output";
   // string folderr = "testcase/expect/expect";
   if (start == 0) {
