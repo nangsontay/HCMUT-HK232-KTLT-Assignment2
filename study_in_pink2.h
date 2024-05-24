@@ -158,7 +158,7 @@ class Position {
   static const Position npos;
   Position(int r = 0, int c = 0);
   Position(const string &str_pos);
-  ~Position() = default;
+  ~Position(){};
   int getRow() const;
   int getCol() const;
   void setRow(int r);
