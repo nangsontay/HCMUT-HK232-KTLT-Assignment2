@@ -659,8 +659,8 @@ Configuration::Configuration(const string &filepath) {
 }
 
 Configuration::~Configuration() {
-  delete[] arr_walls;
-  delete[] arr_fake_walls;
+  if (arr_walls) delete[] arr_walls;
+  if (arr_fake_walls) delete[] arr_fake_walls;
 }
 
 string Configuration::str() const {
@@ -1757,12 +1757,15 @@ void StudyPinkProgram::run(bool verbose, ofstream &OUTPUT) {
       stopChecker = arr_mv_objs->checkMeet(i);
       if (isStop()) {
         printInfo(istep, i, OUTPUT);
+        delete robot;
         return;
       }
-      if (robot != nullptr)
+      if (robot != nullptr) {
         if (criminal->getCount() % 3 == 0 && criminal->getCount() > 0) {
           arr_mv_objs->add(robot);
         }
+        else delete robot;
+      }
       if (verbose) {
         printInfo(istep, i, OUTPUT);
       }
