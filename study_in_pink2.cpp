@@ -659,8 +659,8 @@ Configuration::Configuration(const string &filepath) {
 }
 
 Configuration::~Configuration() {
-  if (arr_walls) delete[] arr_walls;
-  if (arr_fake_walls) delete[] arr_fake_walls;
+  if (num_walls) delete[] arr_walls;
+  if (num_fake_walls) delete[] arr_fake_walls;
 }
 
 string Configuration::str() const {
@@ -880,6 +880,7 @@ bool BaseBag::insert(BaseItem *item) {
   if (isFull()) return false;
   if (!item) return false;
   if (head == nullptr) {
+      delete head;
     head = new Node(item);
     size++;
     if (item->getType() == ItemType::PASSING_CARD) ++havePassingCard;
@@ -1762,7 +1763,7 @@ void StudyPinkProgram::run(bool verbose, ofstream &OUTPUT) {
       }
       if (robot != nullptr) {
         if (criminal->getCount() % 3 == 0 && criminal->getCount() > 0) {
-          arr_mv_objs->add(robot);
+          if(!arr_mv_objs->add(robot)) delete robot;
         }
         else delete robot;
       }
