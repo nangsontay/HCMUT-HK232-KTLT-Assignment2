@@ -51,14 +51,14 @@ build cmake_object_order_depends_target_HCMUT_HK232_KTLT_Assignment2: phony || C
 
 build CMakeFiles/HCMUT_HK232_KTLT_Assignment2.dir/main.cpp.o: CXX_COMPILER__HCMUT_HK232_KTLT_Assignment2_unscanned_Debug /Users/nangsontay/HocTap/HK232/Code/HCMUT-HK232-KTLT-Assignment2/main.cpp || cmake_object_order_depends_target_HCMUT_HK232_KTLT_Assignment2
   DEP_FILE = CMakeFiles/HCMUT_HK232_KTLT_Assignment2.dir/main.cpp.o.d
-  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.2 -fcolor-diagnostics
+  FLAGS = -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.2 -fcolor-diagnostics
   INCLUDES = -I/Users/nangsontay/HocTap/HK232/Code/HCMUT-HK232-KTLT-Assignment2/.
   OBJECT_DIR = CMakeFiles/HCMUT_HK232_KTLT_Assignment2.dir
   OBJECT_FILE_DIR = CMakeFiles/HCMUT_HK232_KTLT_Assignment2.dir
 
 build CMakeFiles/HCMUT_HK232_KTLT_Assignment2.dir/study_in_pink2.cpp.o: CXX_COMPILER__HCMUT_HK232_KTLT_Assignment2_unscanned_Debug /Users/nangsontay/HocTap/HK232/Code/HCMUT-HK232-KTLT-Assignment2/study_in_pink2.cpp || cmake_object_order_depends_target_HCMUT_HK232_KTLT_Assignment2
   DEP_FILE = CMakeFiles/HCMUT_HK232_KTLT_Assignment2.dir/study_in_pink2.cpp.o.d
-  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.2 -fcolor-diagnostics
+  FLAGS = -g -std=gnu++11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.2 -fcolor-diagnostics
   INCLUDES = -I/Users/nangsontay/HocTap/HK232/Code/HCMUT-HK232-KTLT-Assignment2/.
   OBJECT_DIR = CMakeFiles/HCMUT_HK232_KTLT_Assignment2.dir
   OBJECT_FILE_DIR = CMakeFiles/HCMUT_HK232_KTLT_Assignment2.dir
