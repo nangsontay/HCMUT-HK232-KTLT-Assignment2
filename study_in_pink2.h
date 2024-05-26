@@ -537,8 +537,8 @@ class BaseBag {
       this->item = item;
       this->next = nullptr;
     }
+    ~Node(){};
   };
-
  protected:
   Character *obj;
   // addition
@@ -557,9 +557,7 @@ class BaseBag {
     //destructor xóa các Node (Lưu ý phải xóa cả item_type trong Node đó)
     while (size > 0) {
       Node *temp = head;
-      head = this->head->next;
-      if (temp->item)
-        delete temp->item;
+      head = head->next;
       delete temp;
       size--;
     }

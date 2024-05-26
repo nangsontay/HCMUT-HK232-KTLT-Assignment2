@@ -659,8 +659,8 @@ Configuration::Configuration(const string &filepath) {
 }
 
 Configuration::~Configuration() {
-  if (arr_walls) delete[] arr_walls;
-  if (arr_fake_walls) delete[] arr_fake_walls;
+  if (num_walls) delete[] arr_walls;
+  if (num_fake_walls) delete[] arr_fake_walls;
 }
 
 string Configuration::str() const {
@@ -717,7 +717,7 @@ void MagicBook::use(Character *obj, Robot *robot) {
   exp += ceil((double) exp * 0.25);
   obj->setEXP(exp);
   //cout << "EXP after use:" << obj->getEXP() << endl;
-  delete this;
+   
 }
 
 // *CLASS: EnergyDrink
@@ -741,7 +741,7 @@ void EnergyDrink::use(Character *obj, Robot *robot) {
   int hp = obj->getHP();
   hp += ceil((double) hp * 0.2);
   obj->setHP(hp);
-  delete this;
+   
 }
 
 // *CLASS: FirstAid
@@ -773,7 +773,7 @@ void FirstAid::use(Character *obj, Robot *robot) {
   int hp = obj->getHP();
   hp += ceil((double) hp * 0.5);
   obj->setHP(hp);
-  delete this;
+   
 }
 
 // *CLASS: ExcemptionCard
@@ -804,7 +804,7 @@ bool ExcemptionCard::canUse(Character *obj, Robot *robot) {
 void ExcemptionCard::use(Character *obj, Robot *robot) {
   //sinh viên hiện thực theo tư duy code của mình (hàm có thể rỗng)
   if (obj->getObjectType() == SHERLOCK) obj->usedCard = true;
-  delete this;
+   
 }
 // *CLASS: PassingCard
 PassingCard::PassingCard(int i, int j) {
@@ -858,7 +858,7 @@ void PassingCard::use(Character *obj, Robot *robot) {
     obj->setEXP(exp);
   }
   obj->usedCard = true;
-  delete this;
+   
 }
 // *CLASS: BaseBag
 BaseBag::BaseBag(int capacity) {
@@ -1685,19 +1685,7 @@ RobotType Robot::getType() const {
 }
 
 BaseItem *Robot::getItem() {
-  switch (item->getType()) {
-    case MAGIC_BOOK:
-      return new MagicBook();
-    case ENERGY_DRINK:
-      return new EnergyDrink();
-    case FIRST_AID:
-      return new FirstAid();
-    case PASSING_CARD:
-      return new PassingCard(dynamic_cast<PassingCard *>(item));
-    case EXCEMPTION_CARD:
-      return new ExcemptionCard();
-  }
-  return nullptr;
+  return item;
 }
 int Robot::getDistance(Character *obj) const {
   return calculateDistance(this->getCurrentPosition(), obj->getCurrentPosition());
@@ -1762,7 +1750,7 @@ void StudyPinkProgram::run(bool verbose, ofstream &OUTPUT) {
       }
       if (robot != nullptr) {
         if (criminal->getCount() % 3 == 0 && criminal->getCount() > 0) {
-          arr_mv_objs->add(robot);
+          if(!arr_mv_objs->add(robot)) delete robot;
         }
         else delete robot;
       }
