@@ -717,7 +717,7 @@ void MagicBook::use(Character *obj, Robot *robot) {
   exp += ceil((double) exp * 0.25);
   obj->setEXP(exp);
   //cout << "EXP after use:" << obj->getEXP() << endl;
-  delete this;
+   
 }
 
 // *CLASS: EnergyDrink
@@ -741,7 +741,7 @@ void EnergyDrink::use(Character *obj, Robot *robot) {
   int hp = obj->getHP();
   hp += ceil((double) hp * 0.2);
   obj->setHP(hp);
-  delete this;
+   
 }
 
 // *CLASS: FirstAid
@@ -773,7 +773,7 @@ void FirstAid::use(Character *obj, Robot *robot) {
   int hp = obj->getHP();
   hp += ceil((double) hp * 0.5);
   obj->setHP(hp);
-  delete this;
+   
 }
 
 // *CLASS: ExcemptionCard
@@ -804,7 +804,7 @@ bool ExcemptionCard::canUse(Character *obj, Robot *robot) {
 void ExcemptionCard::use(Character *obj, Robot *robot) {
   //sinh viên hiện thực theo tư duy code của mình (hàm có thể rỗng)
   if (obj->getObjectType() == SHERLOCK) obj->usedCard = true;
-  delete this;
+   
 }
 // *CLASS: PassingCard
 PassingCard::PassingCard(int i, int j) {
@@ -858,7 +858,7 @@ void PassingCard::use(Character *obj, Robot *robot) {
     obj->setEXP(exp);
   }
   obj->usedCard = true;
-  delete this;
+   
 }
 // *CLASS: BaseBag
 BaseBag::BaseBag(int capacity) {
@@ -880,7 +880,6 @@ bool BaseBag::insert(BaseItem *item) {
   if (isFull()) return false;
   if (!item) return false;
   if (head == nullptr) {
-      delete head;
     head = new Node(item);
     size++;
     if (item->getType() == ItemType::PASSING_CARD) ++havePassingCard;
@@ -1686,19 +1685,7 @@ RobotType Robot::getType() const {
 }
 
 BaseItem *Robot::getItem() {
-  switch (item->getType()) {
-    case MAGIC_BOOK:
-      return new MagicBook();
-    case ENERGY_DRINK:
-      return new EnergyDrink();
-    case FIRST_AID:
-      return new FirstAid();
-    case PASSING_CARD:
-      return new PassingCard(dynamic_cast<PassingCard *>(item));
-    case EXCEMPTION_CARD:
-      return new ExcemptionCard();
-  }
-  return nullptr;
+  return item;
 }
 int Robot::getDistance(Character *obj) const {
   return calculateDistance(this->getCurrentPosition(), obj->getCurrentPosition());
