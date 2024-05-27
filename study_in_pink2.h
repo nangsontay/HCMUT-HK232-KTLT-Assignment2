@@ -571,8 +571,8 @@ class BaseBag {
   int haveExcemptionCard;
   Robot *robot_check;
   virtual bool tradingConditionCheck() { return false; };
-  void setRobotCheck(Robot *robot);
-  void resetRobotCheck() { robot_check = nullptr; }
+//  void setRobotCheck(Robot *robot);
+//  void resetRobotCheck() { robot_check = nullptr; }
   bool swapWithHead(Node *node);
 };
 

@@ -158,6 +158,7 @@ Criminal::Criminal(int index, const Position &init_pos, Map *map, Sherlock *sher
   count = 0;
   this->sherlock = sherlock;
   this->watson = watson;
+  prev_pos = Position::npos;
 }
 
 Position Criminal::getNextPosition() {
@@ -524,7 +525,7 @@ ArrayMovingObject::ArrayMovingObject(int capacity) {
 
 ArrayMovingObject::~ArrayMovingObject() {
   // destructor
-  if (count<3) {
+  if (count < 3) {
     delete[] arr_mv_objs;
     return;
   }
@@ -560,13 +561,14 @@ int ArrayMovingObject::size() const {
 
 string ArrayMovingObject::str() const {
   // trả về chuỗi biểu diễn mảng
-  string result = "ArrayMovingObject[count=" + to_string(count) + ";capacity=" + to_string(capacity) + ";";
+  string result = "ArrayMovingObject[count=" + to_string(count) + ";capacity=" + to_string(capacity);
   if (count == 0) return result + "]";
-  for (int i = 0; i < count-1; ++i) {
+  else result += ";";
+  for (int i = 0; i < count - 1; ++i) {
     if (arr_mv_objs[i] != nullptr)
       result += arr_mv_objs[i]->str() + ";";
   }
-  result+= arr_mv_objs[count-1]->str() + "]";
+  result += arr_mv_objs[count - 1]->str() + "]";
   return result;
 }
 
@@ -710,7 +712,8 @@ string MagicBook::str() const {
 
 bool MagicBook::canUse(Character *obj, Robot *robot) {
   //Sau khi đấm Robot, exp
-  if (((obj)->getEXP()) <= 350 && robot == nullptr)
+  if (((obj)->getEXP()) <= 350 && robot == nullptr && obj->getObjectType() < CRIMINAL
+      && obj->getObjectType() >= SHERLOCK)
     return true;
   else return false;
 }
@@ -737,7 +740,7 @@ string EnergyDrink::str() const {
 bool EnergyDrink::canUse(Character *obj, Robot *robot) {
   // *Sau khi đấm Robot, hp
   int hp = obj->getHP();
-  if (hp <= 100 && robot == nullptr)
+  if (hp <= 100 && robot == nullptr && obj->getObjectType() < CRIMINAL && obj->getObjectType() >= SHERLOCK)
     return true;
   return false;
 }
@@ -767,7 +770,8 @@ bool FirstAid::canUse(Character *obj, Robot *robot) {
   int objexp = obj->getEXP();
   //cout << (objhp) << " " << objexp << endl;
   //if (robot != nullptr) cout << "Error robot lỏ\n";
-  if ((((obj->getEXP()) <= 350) || ((obj->getHP()) <= 100)) && robot == nullptr) {
+  if ((((obj->getEXP()) <= 350) || ((obj->getHP()) <= 100)) && robot == nullptr && obj->getObjectType() < CRIMINAL
+      && obj->getObjectType() >= SHERLOCK) {
     //cout << "can use first aid\n";
     return true;
   }
@@ -799,11 +803,11 @@ bool ExcemptionCard::canUse(Character *obj, Robot *robot) {
 //    return false;
 //  }
   int hp = obj->getHP();
-  if ((hp % 2 != 0) && robot != nullptr) {
+  if ((hp % 2 != 0) && (robot != nullptr) && (obj->getObjectType() == SHERLOCK)) {
     //cout << "ExCard can use\n";
     return true;
   }
-  return false;
+  else return false;
 }
 
 void ExcemptionCard::use(Character *obj, Robot *robot) {
@@ -844,8 +848,8 @@ string PassingCard::str() const {
 bool PassingCard::canUse(Character *obj, Robot *robot) {
   // điều kiện sử dụng
   // *Trước khi đấm Robot, Watson, hp chẵn
-  if (obj->getObjectType() != WATSON) return false;
-  if ((((obj->getHP()) % 2) == 0) && robot != nullptr)
+
+  if ((((obj->getHP()) % 2) == 0) && robot != nullptr && obj->getObjectType() == WATSON)
     return true;
   return false;
 }
@@ -873,12 +877,12 @@ BaseBag::BaseBag(int capacity) {
   this->head = nullptr;
   havePassingCard = 0;
   haveExcemptionCard = 0;
-  resetRobotCheck();
+  // // resetRobotCheck();
 }
 
-void BaseBag::setRobotCheck(Robot *robot) {
-  robot_check = robot;
-}
+//void BaseBag::setRobotCheck(Robot *robot) {
+//  robot_check = robot;
+//}
 
 bool BaseBag::insert(BaseItem *item) {
   // thêm Node chứa item_type vào đầu Linked List
@@ -907,14 +911,14 @@ BaseItem *BaseBag::get(ItemType itemType) {
   // Tìm và trả về item_type tương ứng với itemType
   Node *node = head;
   while (node != nullptr) {
-    if (node->item->getType() == itemType && node->item->canUse(obj, robot_check)) {
+    if (node->item->getType() == itemType) {
       if (swapWithHead(node)) {
         BaseItem *item = head->item;
         head = head->next;
         --size;
         if (itemType == ItemType::PASSING_CARD) --havePassingCard;
         if (itemType == ItemType::EXCEMPTION_CARD) --haveExcemptionCard;
-        resetRobotCheck();
+        // resetRobotCheck();
         return item;
       }
       else return nullptr;
@@ -1221,9 +1225,9 @@ bool ArrayMovingObject::checkMeet(int index) {
 
 bool Sherlock::meet(RobotS *robotS) {
   //get Card for each time meet RobotS
-  this->getBag()->setRobotCheck(robotS);
+//  this->getBag()->setRobotCheck(robotS);
   BaseItem *itemUse = preFight(robotS);
-  this->getBag()->resetRobotCheck();
+//  this->getBag()-> resetRobotCheck();
   if (itemUse) itemUse->use(this, robotS);
   //else cout << "No item to use\n";
   // Xử lý khi gặp robot S
@@ -1242,7 +1246,7 @@ bool Sherlock::meet(RobotS *robotS) {
 }
 bool Sherlock::meet(RobotW *robotW) {
   // Xử lý khi gặp robot W
-  this->getBag()->setRobotCheck(robotW);
+//  this->getBag()->setRobotCheck(robotW);
   BaseItem *itemUse = preFight(robotW);
   if (itemUse) itemUse->use(this, robotW);
   usedCard = false;
@@ -1253,9 +1257,9 @@ bool Sherlock::meet(RobotW *robotW) {
 bool Sherlock::meet(RobotSW *robotSW) {
   //Xử lý khi gặp robot SW
   //Bắt buộc dùng Card kể cả khi có khả năng vượt task
-  this->getBag()->setRobotCheck(robotSW);
+//  this->getBag()->setRobotCheck(robotSW);
   BaseItem *itemUse = preFight(robotSW);
-  this->getBag()->resetRobotCheck();
+//  this->getBag()-> resetRobotCheck();
   if (itemUse) itemUse->use(this, robotSW);
   if ((exp > 300) && (hp > 335)) {
     bag->insert(robotSW->getItem());
@@ -1276,9 +1280,9 @@ bool Sherlock::meet(RobotSW *robotSW) {
 
 bool Sherlock::meet(RobotC *robotC) {
   // Xử lý khi gặp robot C
-  this->getBag()->setRobotCheck(robotC);
+//  this->getBag()->setRobotCheck(robotC);
   BaseItem *itemUse = preFight(robotC);
-  this->getBag()->resetRobotCheck();
+//  this->getBag()-> resetRobotCheck();
   usedCard = false;
   if (exp > 500) {
     setPos(robotC->criminalCaught());
@@ -1326,7 +1330,7 @@ bool Sherlock::meet(Watson *watson) {
 // ! Thực hiện get từ bag sau khi insert item_type
 bool Watson::meet(RobotS *robotS) {
   //Xử lý trao đổi khi gặp robot S
-  this->getBag()->setRobotCheck(robotS);
+//  this->getBag()->setRobotCheck(robotS);
   BaseItem *itemUse = preFight(robotS);
   if (itemUse) itemUse->use(this, robotS);
   usedCard = false;
@@ -1336,7 +1340,7 @@ bool Watson::meet(RobotS *robotS) {
 bool Watson::meet(RobotW *robotW) {
   // Xử lý trao đổi khi gặp robot W
   //get Card for each time meet RobotS
-  this->getBag()->setRobotCheck(robotW);
+//  this->getBag()->setRobotCheck(robotW);
   BaseItem *itemUse = preFight(robotW);
   if (itemUse) itemUse->use(this, robotW);
   // Xử lý khi gặp robot S
@@ -1357,7 +1361,7 @@ bool Watson::meet(RobotW *robotW) {
 bool Watson::meet(RobotSW *robotSW) {
   // Xử lý trao đổi khi gặp robot SW
   //get Card for each time meet RobotS
-  this->getBag()->setRobotCheck(robotSW);
+//  this->getBag()->setRobotCheck(robotSW);
   BaseItem *itemUse = preFight(robotSW);
   if (itemUse) itemUse->use(this, robotSW);
   // Xử lý khi gặp robot Sx
@@ -1377,7 +1381,7 @@ bool Watson::meet(RobotSW *robotSW) {
 
 bool Watson::meet(RobotC *robotC) {
   // Xử lý trao đổi khi gặp robot C
-  this->getBag()->setRobotCheck(robotC);
+//  this->getBag()->setRobotCheck(robotC);
   BaseItem *itemUse = preFight(robotC);
   if (itemUse) itemUse->use(this, robotC);
   bag->insert(robotC->getItem());
@@ -1415,14 +1419,14 @@ BaseItem *Character::preFight(Robot *robot) {
   BaseItem *item = nullptr;
   switch (this->getObjectType()) {
     case SHERLOCK:
-      if (this->getBag()->haveExcemptionCard != 0) {
+      if (this->getBag()->haveExcemptionCard != 0 && (this->getHP()) % 2 == 1) {
         item = this->getBag()->get(EXCEMPTION_CARD);
       }
       else return nullptr;
       break;
     case WATSON:
-//      if (this->getBag()->havePassingCard != 0)
-      item = this->getBag()->get(PASSING_CARD);
+      if (this->getBag()->havePassingCard != 0 && (this->getHP()) % 2 == 1)
+        item = this->getBag()->get(PASSING_CARD);
       break;
     default:
       return nullptr;
@@ -1650,12 +1654,10 @@ int Criminal::getCount() const {
 int reduceNum(int num) {
   if (num < 10) return num;
   else {
-    int sum = 0;
-    while (num > 0) {
-      sum += num % 10;
-      num /= 10;
+    while (num > 10) {
+      num = num / 10 + num % 10;
     }
-    return sum;
+    return num;
   }
 }
 MovingObjectType Robot::getObjectType() const {
