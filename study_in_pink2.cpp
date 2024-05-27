@@ -524,6 +524,10 @@ ArrayMovingObject::ArrayMovingObject(int capacity) {
 
 ArrayMovingObject::~ArrayMovingObject() {
   // destructor
+  if (count<3) {
+    delete[] arr_mv_objs;
+    return;
+  }
   for (int i = 3; i < capacity; ++i) {
     if (arr_mv_objs[i] != nullptr) delete arr_mv_objs[i];
   }
@@ -557,11 +561,12 @@ int ArrayMovingObject::size() const {
 string ArrayMovingObject::str() const {
   // trả về chuỗi biểu diễn mảng
   string result = "ArrayMovingObject[count=" + to_string(count) + ";capacity=" + to_string(capacity) + ";";
-  for (int i = 0; i < count; ++i) {
+  if (count == 0) return result + "]";
+  for (int i = 0; i < count-1; ++i) {
     if (arr_mv_objs[i] != nullptr)
       result += arr_mv_objs[i]->str() + ";";
   }
-  result[result.length() - 1] = ']';
+  result+= arr_mv_objs[count-1]->str() + "]";
   return result;
 }
 
@@ -665,7 +670,7 @@ Configuration::~Configuration() {
 
 string Configuration::str() const {
   string arraywall = "[";
-  if (arr_walls != nullptr) {
+  if (num_walls) {
     for (int i = 0; i < num_walls - 1; i++) {
       arraywall += arr_walls[i].str() + ";";
     }
@@ -673,7 +678,7 @@ string Configuration::str() const {
   }
   else arraywall = "[]";
   string arrayfakewall = "[";
-  if (arr_fake_walls != nullptr) {
+  if (num_fake_walls) {
     for (int i = 0; i < num_fake_walls - 1; i++) {
       arrayfakewall += arr_fake_walls[i].str() + ";";
     }
