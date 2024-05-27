@@ -717,7 +717,7 @@ void MagicBook::use(Character *obj, Robot *robot) {
   exp += ceil((double) exp * 0.25);
   obj->setEXP(exp);
   //cout << "EXP after use:" << obj->getEXP() << endl;
-   
+
 }
 
 // *CLASS: EnergyDrink
@@ -741,7 +741,7 @@ void EnergyDrink::use(Character *obj, Robot *robot) {
   int hp = obj->getHP();
   hp += ceil((double) hp * 0.2);
   obj->setHP(hp);
-   
+
 }
 
 // *CLASS: FirstAid
@@ -773,7 +773,7 @@ void FirstAid::use(Character *obj, Robot *robot) {
   int hp = obj->getHP();
   hp += ceil((double) hp * 0.5);
   obj->setHP(hp);
-   
+
 }
 
 // *CLASS: ExcemptionCard
@@ -804,7 +804,7 @@ bool ExcemptionCard::canUse(Character *obj, Robot *robot) {
 void ExcemptionCard::use(Character *obj, Robot *robot) {
   //sinh viên hiện thực theo tư duy code của mình (hàm có thể rỗng)
   if (obj->getObjectType() == SHERLOCK) obj->usedCard = true;
-   
+
 }
 // *CLASS: PassingCard
 PassingCard::PassingCard(int i, int j) {
@@ -858,7 +858,7 @@ void PassingCard::use(Character *obj, Robot *robot) {
     obj->setEXP(exp);
   }
   obj->usedCard = true;
-   
+
 }
 // *CLASS: BaseBag
 BaseBag::BaseBag(int capacity) {
@@ -1024,14 +1024,13 @@ StudyPinkProgram::~StudyPinkProgram() {
 }
 
 bool StudyPinkProgram::isStop() const {
-  if (stopChecker || ((sherlock->getHP()) == 0) || (watson->getHP()) == 0) {
+  if (stopChecker || ((sherlock->getHP()) == 1) || (watson->getHP()) == 1) {
     return true;
   }
   return false;
 }
 
 void StudyPinkProgram::run(bool verbose) {
-  if (isStop()) return;
   for (int istep = 0; istep < config->num_steps; ++istep) {
     for (int i = 0; i < arr_mv_objs->size(); ++i) {
       MovingObject *robot = nullptr;
@@ -1041,18 +1040,16 @@ void StudyPinkProgram::run(bool verbose) {
       arr_mv_objs->get(i)->move();
       stopChecker = arr_mv_objs->checkMeet(i);
       if (isStop()) {
-        printStep(istep);
         return;
       }
-      if (robot != nullptr)
-        if (criminal->getCount() % 3 == 0 && criminal->getCount() > 0) {
-          arr_mv_objs->add(robot);
-        }
+      if (criminal->getCount() % 3 == 0 && criminal->getCount() > 0) {
+        arr_mv_objs->add(robot);
+      }
+      else delete robot;
       if (verbose) {
         printStep(istep);
       }
     }
-    printResult();
   }
 }
 // *------------------------------------------------------------------
@@ -1750,7 +1747,7 @@ void StudyPinkProgram::run(bool verbose, ofstream &OUTPUT) {
       }
       if (robot != nullptr) {
         if (criminal->getCount() % 3 == 0 && criminal->getCount() > 0) {
-          if(!arr_mv_objs->add(robot)) delete robot;
+          if (!arr_mv_objs->add(robot)) delete robot;
         }
         else delete robot;
       }

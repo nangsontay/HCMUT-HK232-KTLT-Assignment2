@@ -1,0 +1,1127 @@
+----- Testcase 01 -----
+0----- Testcase 02 -----
+0----- Testcase 03 -----
+0----- Testcase 04 -----
+1----- Testcase 05 -----
+1----- Testcase 06 -----
+1----- Testcase 07 -----
+2----- Testcase 08 -----
+100----- Testcase 09 -----
+2----- Testcase 10 -----
+100----- Testcase 11 -----
+2----- Testcase 12 -----
+----- Testcase 13 -----
+----- Testcase 14 -----
+----- Testcase 15 -----
+----- Testcase 16 -----
+----- Testcase 17 -----
+----- Testcase 18 -----
+----- Testcase 19 -----
+----- Testcase 20 -----
+----- Testcase 21 -----
+----- Testcase 22 -----
+----- Testcase 23 -----
+----- Testcase 24 -----
+----- Testcase 25 -----
+----- Testcase 26 -----
+----- Testcase 27 -----
+----- Testcase 28 -----
+----- Testcase 29 -----
+----- Testcase 30 -----
+----- Testcase 31 -----
+----- Testcase 32 -----
+----- Testcase 33 -----
+----- Testcase 34 -----
+----- Testcase 35 -----
+----- Testcase 36 -----
+----- Testcase 37 -----
+----- Testcase 38 -----
+----- Testcase 39 -----
+----- Testcase 40 -----
+----- Testcase 41 -----
+----- Testcase 42 -----
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+----- Testcase 43 -----
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-2270-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+----- Testcase 44 -----
+290-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-2270-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-254-
+----- Testcase 45 -----
+290-0-0-0-0-0-0-0-0-0-
+0-2486-0-0-0-0-0-0-0-0-
+0-0-2882-0-0-0-0-0-0-0-
+0-0-0-2378-0-0-0-0-0-0-
+0-0-0-0-2774-0-0-0-0-0-
+0-0-0-0-0-2270-0-0-0-0-
+0-0-0-0-0-0-2666-0-0-0-
+0-0-0-0-0-0-0-2162-0-0-
+0-0-0-0-0-0-0-0-2558-0-
+0-0-0-0-0-0-0-0-0-254-
+----- Testcase 46 -----
+0-0-0-0-0-0-0-0-0-1-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+----- Testcase 47 -----
+290-0-0-0-0-0-0-0-0-1-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+----- Testcase 48 -----
+290-0-0-0-0-0-0-0-0-1-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-2270-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-254-
+----- Testcase 49 -----
+290-0-0-0-0-0-0-0-0-1-
+0-2486-0-0-0-0-0-0-0-0-
+0-0-2882-0-0-0-0-0-0-0-
+0-0-0-2378-0-0-0-0-0-0-
+0-0-0-0-2774-0-0-0-0-0-
+0-0-0-0-0-2270-0-0-0-0-
+0-0-0-0-0-0-2666-0-0-0-
+0-0-0-0-0-0-0-2162-0-0-
+0-0-0-0-0-0-0-0-2558-0-
+0-0-0-0-0-0-0-0-0-254-
+----- Testcase 50 -----
+0-0-0-0-0-0-0-0-0-1-
+0-0-0-0-0-0-0-0-1-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-1-0-0-0-0-0-0-0-0-
+1-0-0-0-0-0-0-0-0-0-
+----- Testcase 51 -----
+0-0-0-0-0-0-0-0-0-1-
+0-0-0-0-0-0-0-0-1-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-2270-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-1-0-0-0-0-0-0-0-0-
+1-0-0-0-0-0-0-0-0-0-
+----- Testcase 52 -----
+290-0-0-0-0-0-0-0-0-1-
+0-0-0-0-0-0-0-0-1-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-2270-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-0-0-0-0-0-0-0-0-0-
+0-1-0-0-0-0-0-0-0-0-
+1-0-0-0-0-0-0-0-0-254-
+----- Testcase 53 -----
+290-0-0-0-0-0-0-0-0-1-
+0-2486-0-0-0-0-0-0-1-0-
+0-0-2882-0-0-0-0-0-0-0-
+0-0-0-2378-0-0-0-0-0-0-
+0-0-0-0-2774-0-0-0-0-0-
+0-0-0-0-0-2270-0-0-0-0-
+0-0-0-0-0-0-2666-0-0-0-
+0-0-0-0-0-0-0-2162-0-0-
+0-1-0-0-0-0-0-0-2558-0-
+1-0-0-0-0-0-0-0-0-254-
+----- Testcase 54 -----
+(0,0)----- Testcase 55 -----
+(1,0)----- Testcase 56 -----
+(1,3)----- Testcase 57 -----
+(0,0)----- Testcase 58 -----
+(1,2)----- Testcase 59 -----
+(1,-1)----- Testcase 60 -----
+(-2,3)----- Testcase 61 -----
+(-2,-4)----- Testcase 62 -----
+3----- Testcase 63 -----
+2----- Testcase 64 -----
+5----- Testcase 65 -----
+4----- Testcase 66 -----
+(5,5)----- Testcase 67 -----
+(3,4)----- Testcase 68 -----
+(3,1)----- Testcase 69 -----
+(2,1)----- Testcase 70 -----
+1----- Testcase 71 -----
+0----- Testcase 72 -----
+0----- Testcase 73 -----
+0----- Testcase 74 -----
+0-0----- Testcase 75 -----
+1-0----- Testcase 76 -----
+1-3----- Testcase 77 -----
+0-0----- Testcase 78 -----
+1-2----- Testcase 79 -----
+1--1----- Testcase 80 -----
+-2-3----- Testcase 81 -----
+-2--4----- Testcase 82 -----
+3----- Testcase 83 -----
+2----- Testcase 84 -----
+5----- Testcase 85 -----
+4----- Testcase 86 -----
+5-5----- Testcase 87 -----
+3-4----- Testcase 88 -----
+3-1----- Testcase 89 -----
+2-1----- Testcase 90 -----
+1----- Testcase 91 -----
+0----- Testcase 92 -----
+0----- Testcase 93 -----
+0----- Testcase 94 -----
+(0,2)
+----- Testcase 95 -----
+(-1,-1)
+----- Testcase 96 -----
+(2,2)
+----- Testcase 97 -----
+(-1,-1)
+----- Testcase 98 -----
+(0,4)
+----- Testcase 99 -----
+Sherlock[index=1;pos=(0,2);moving_rule=URL]----- Testcase 100 -----
+Sherlock[index=1;pos=(2,1);moving_rule=URL]----- Testcase 101 -----
+Sherlock[index=1;pos=(2,2);moving_rule=URL]----- Testcase 102 -----
+Sherlock[index=1;pos=(4,1);moving_rule=URL]----- Testcase 103 -----
+Sherlock[index=1;pos=(0,4);moving_rule=URL]----- Testcase 104 -----
+100
+250
+URL(1,2)----- Testcase 105 -----
+100
+250
+URL(2,1)----- Testcase 106 -----
+100
+250
+URL(3,2)----- Testcase 107 -----
+100
+250
+URL(4,1)----- Testcase 108 -----
+100
+250
+URL(1,4)----- Testcase 109 -----
+Sherlock[index=1;pos=(1,2);moving_rule=URL]
+----- Testcase 110 -----
+Sherlock[index=1;pos=(2,1);moving_rule=URL]
+----- Testcase 111 -----
+Sherlock[index=1;pos=(3,2);moving_rule=URL]
+----- Testcase 112 -----
+Sherlock[index=1;pos=(4,1);moving_rule=URL]
+----- Testcase 113 -----
+Sherlock[index=1;pos=(1,4);moving_rule=URL]
+----- Testcase 114 -----
+(0,0)
+----- Testcase 115 -----
+(-1,-1)
+----- Testcase 116 -----
+(4,2)
+----- Testcase 117 -----
+(-1,-1)
+----- Testcase 118 -----
+(-1,-1)
+----- Testcase 119 -----
+(-1,-1)
+----- Testcase 120 -----
+Watson[index=1;pos=(0,0);moving_rule=LUR]----- Testcase 121 -----
+Watson[index=1;pos=(1,4);moving_rule=LUR]----- Testcase 122 -----
+Watson[index=1;pos=(4,2);moving_rule=DR]----- Testcase 123 -----
+Watson[index=1;pos=(0,2);moving_rule=DR]----- Testcase 124 -----
+Watson[index=1;pos=(1,4);moving_rule=LUR]----- Testcase 125 -----
+Watson[index=1;pos=(0,0);moving_rule=LUR]----- Testcase 126 -----
+100
+250
+LUR(0,1)----- Testcase 127 -----
+100
+250
+LUR(1,4)----- Testcase 128 -----
+100
+500
+DR(3,2)----- Testcase 129 -----
+100
+500
+DR(0,2)----- Testcase 130 -----
+100
+250
+LUR(1,4)----- Testcase 131 -----
+100
+250
+LUR(0,0)----- Testcase 132 -----
+Watson[index=1;pos=(0,1);moving_rule=LUR]
+----- Testcase 133 -----
+Watson[index=1;pos=(1,4);moving_rule=LUR]
+----- Testcase 134 -----
+Watson[index=1;pos=(3,2);moving_rule=DR]
+----- Testcase 135 -----
+Watson[index=1;pos=(0,2);moving_rule=DR]
+----- Testcase 136 -----
+Watson[index=1;pos=(1,4);moving_rule=LUR]
+----- Testcase 137 -----
+Watson[index=1;pos=(0,0);moving_rule=LUR]
+----- Testcase 138 -----
+(4,3)
+----- Testcase 139 -----
+(2,3)
+----- Testcase 140 -----
+(2,3)
+----- Testcase 141 -----
+(2,3)
+----- Testcase 142 -----
+(2,6)
+----- Testcase 143 -----
+Criminal[index=0;pos=(4,3)]----- Testcase 144 -----
+Criminal[index=0;pos=(2,3)]----- Testcase 145 -----
+Criminal[index=0;pos=(2,3)]----- Testcase 146 -----
+Criminal[index=0;pos=(2,3)]----- Testcase 147 -----
+Criminal[index=0;pos=(2,6)]----- Testcase 148 -----
+Sherlock[index=1;pos=(0,0);moving_rule=URL]
+Watson[index=2;pos=(0,6);moving_rule=URL]
+----- Testcase 149 -----
+Sherlock[index=1;pos=(0,0);moving_rule=URL]
+Watson[index=2;pos=(6,0);moving_rule=URL]
+----- Testcase 150 -----
+Sherlock[index=1;pos=(6,0);moving_rule=URL]
+Watson[index=2;pos=(6,6);moving_rule=URL]
+----- Testcase 151 -----
+Sherlock[index=1;pos=(0,0);moving_rule=LU]
+Watson[index=2;pos=(6,0);moving_rule=LU]
+----- Testcase 152 -----
+Sherlock[index=1;pos=(0,0);moving_rule=LU]
+Watson[index=2;pos=(6,0);moving_rule=LU]
+----- Testcase 153 -----
+Criminal[index=0;pos=(3,3)]
+----- Testcase 154 -----
+Criminal[index=0;pos=(3,3)]
+----- Testcase 155 -----
+Criminal[index=0;pos=(3,3)]
+----- Testcase 156 -----
+Criminal[index=0;pos=(4,3)]
+----- Testcase 157 -----
+Criminal[index=0;pos=(3,3)]
+----- Testcase 158 -----
+Criminal[index=0;pos=(3,6)]
+----- Testcase 159 -----
+Criminal[index=0;pos=(3,3)]
+----- Testcase 160 -----
+Criminal[index=0;pos=(3,6)]
+----- Testcase 161 -----
+Criminal[index=0;pos=(3,3)]
+----- Testcase 162 -----
+Criminal[index=0;pos=(3,3)]
+----- Testcase 163 -----
+Sherlock[index=1;pos=(0,0);moving_rule=LU]
+Watson[index=2;pos=(0,6);moving_rule=LU]----- Testcase 164 -----
+Sherlock[index=1;pos=(0,0);moving_rule=LU]
+Watson[index=2;pos=(6,0);moving_rule=LU]----- Testcase 165 -----
+Sherlock[index=1;pos=(3,0);moving_rule=LU]
+Watson[index=2;pos=(3,6);moving_rule=LU]----- Testcase 166 -----
+Sherlock[index=1;pos=(0,3);moving_rule=LU]
+Watson[index=2;pos=(6,3);moving_rule=LU]----- Testcase 167 -----
+ArrayMovingObject[count=0;capacity=5;]
+----- Testcase 168 -----
+ArrayMovingObject[count=1;capacity=5;Sherlock[index=1;pos=(1,3);moving_rule=RUU]]
+----- Testcase 169 -----
+ArrayMovingObject[count=3;capacity=3;Criminal[index=0;pos=(7,9)];Sherlock[index=1;pos=(1,3);moving_rule=RUU];Watson[index=2;pos=(2,1);moving_rule=LU]]
+----- Testcase 170 -----
+----- Testcase 171 -----
+----- Testcase 172 -----
+----- Testcase 173 -----
+----- Testcase 174 -----
+Count: 0
+Capacity: 10
+----- Testcase 175 -----
+Count: 1
+Capacity: 10
+----- Testcase 176 -----
+Count: 3
+Capacity: 3
+----- Testcase 177 -----
+Count: 2
+Capacity: 2
+----- Testcase 178 -----
+Count: 1
+----- Testcase 179 -----
+Count: 2
+----- Testcase 180 -----
+Count: 1
+----- Testcase 181 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+----- Testcase 182 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+----- Testcase 183 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+----- Testcase 184 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+----- Testcase 185 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+----- Testcase 186 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+----- Testcase 187 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+----- Testcase 188 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+----- Testcase 189 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+----- Testcase 190 -----
+Map Num Rows: 0
+Map Num Cols: 0
+Max Num Moving Objects: 0
+Num Wall: 0
+Num Fake Wall: 0
+Shelock Moving Rule: 
+Sherlock init position: (-1,-1)
+Sherlock init hp: 0
+Sherlock init exp: 0
+Watson Moving Rule: 
+Watson init position: (-1,-1)
+Watson init hp: 0
+Watson init exp: 0
+Criminal init position: (-1,-1)
+Number step: 0
+----- Testcase 191 -----
+Map Num Rows: 0
+Map Num Cols: 0
+Max Num Moving Objects: 0
+Num Wall: 0
+Num Fake Wall: 0
+Shelock Moving Rule: 
+Sherlock init position: (-1,-1)
+Sherlock init hp: 0
+Sherlock init exp: 0
+Watson Moving Rule: 
+Watson init position: (-1,-1)
+Watson init hp: 0
+Watson init exp: 0
+Criminal init position: (-1,-1)
+Number step: 0
+----- Testcase 192 -----
+Map Num Rows: 0
+Map Num Cols: 0
+Max Num Moving Objects: 0
+Num Wall: 0
+Num Fake Wall: 0
+Shelock Moving Rule: 
+Sherlock init position: (-1,-1)
+Sherlock init hp: 0
+Sherlock init exp: 0
+Watson Moving Rule: 
+Watson init position: (-1,-1)
+Watson init hp: 0
+Watson init exp: 0
+Criminal init position: (-1,-1)
+Number step: 0
+----- Testcase 193 -----
+Map Num Rows: 0
+Map Num Cols: 0
+Max Num Moving Objects: 0
+Num Wall: 0
+Num Fake Wall: 0
+Shelock Moving Rule: 
+Sherlock init position: (-1,-1)
+Sherlock init hp: 0
+Sherlock init exp: 0
+Watson Moving Rule: 
+Watson init position: (-1,-1)
+Watson init hp: 0
+Watson init exp: 0
+Criminal init position: (-1,-1)
+Number step: 0
+----- Testcase 194 -----
+Map Num Rows: 0
+Map Num Cols: 0
+Max Num Moving Objects: 0
+Num Wall: 0
+Num Fake Wall: 0
+Shelock Moving Rule: 
+Sherlock init position: (-1,-1)
+Sherlock init hp: 0
+Sherlock init exp: 0
+Watson Moving Rule: 
+Watson init position: (-1,-1)
+Watson init hp: 0
+Watson init exp: 0
+Criminal init position: (-1,-1)
+Number step: 0
+----- Testcase 195 -----
+Map Num Rows: 0
+Map Num Cols: 0
+Max Num Moving Objects: 0
+Num Wall: 0
+Num Fake Wall: 0
+Shelock Moving Rule: 
+Sherlock init position: (-1,-1)
+Sherlock init hp: 0
+Sherlock init exp: 0
+Watson Moving Rule: 
+Watson init position: (-1,-1)
+Watson init hp: 0
+Watson init exp: 0
+Criminal init position: (-1,-1)
+Number step: 0
+----- Testcase 196 -----
+Map Num Rows: 0
+Map Num Cols: 0
+Max Num Moving Objects: 0
+Num Wall: 0
+Num Fake Wall: 0
+Shelock Moving Rule: 
+Sherlock init position: (-1,-1)
+Sherlock init hp: 0
+Sherlock init exp: 0
+Watson Moving Rule: 
+Watson init position: (-1,-1)
+Watson init hp: 0
+Watson init exp: 0
+Criminal init position: (-1,-1)
+Number step: 0
+----- Testcase 197 -----
+Map Num Rows: 0
+Map Num Cols: 0
+Max Num Moving Objects: 0
+Num Wall: 0
+Num Fake Wall: 0
+Shelock Moving Rule: 
+Sherlock init position: (-1,-1)
+Sherlock init hp: 0
+Sherlock init exp: 0
+Watson Moving Rule: 
+Watson init position: (-1,-1)
+Watson init hp: 0
+Watson init exp: 0
+Criminal init position: (-1,-1)
+Number step: 0
+----- Testcase 198 -----
+Map Num Rows: 0
+Map Num Cols: 0
+Max Num Moving Objects: 0
+Num Wall: 0
+Num Fake Wall: 0
+Shelock Moving Rule: 
+Sherlock init position: (-1,-1)
+Sherlock init hp: 0
+Sherlock init exp: 0
+Watson Moving Rule: 
+Watson init position: (-1,-1)
+Watson init hp: 0
+Watson init exp: 0
+Criminal init position: (-1,-1)
+Number step: 0
+----- Testcase 199 -----
+Can get close----- Testcase 200 -----
+Can get close----- Testcase 201 -----
+Can get close----- Testcase 202 -----
+Robot[pos=(3,3);type=S;dist=2]----- Testcase 203 -----
+Robot[pos=(4,3);type=S;dist=3]----- Testcase 204 -----
+Robot[pos=(2,2);type=S;dist=3]----- Testcase 205 -----
+Current: 3 3
+Next position: -1 -1
+Can get close----- Testcase 206 -----
+Current: 3 3
+Next position: 4 3
+----- Testcase 207 -----
+Current: 3 2
+Next position: 2 2
+Can get close----- Testcase 208 -----
+Current: 3 3
+Next position: 3 3
+----- Testcase 209 -----
+Current: 3 3
+Next position: 4 3
+----- Testcase 210 -----
+Current: 3 2
+Next position: 2 2
+----- Testcase 211 -----
+Can get close----- Testcase 212 -----
+Can get close----- Testcase 213 -----
+Can get close----- Testcase 214 -----
+Robot[pos=(7,1);type=W;dist=5]----- Testcase 215 -----
+Robot[pos=(3,2);type=W;dist=3]----- Testcase 216 -----
+Robot[pos=(1,1);type=W;dist=3]----- Testcase 217 -----
+Current: 7 1
+Next position: -1 -1
+Can get close----- Testcase 218 -----
+Current: 2 2
+Next position: 3 2
+Can get close----- Testcase 219 -----
+Current: 2 1
+Next position: 1 1
+Can get close----- Testcase 220 -----
+Current: 7 1
+Next position: 7 1
+----- Testcase 221 -----
+Current: 2 2
+Next position: 3 2
+----- Testcase 222 -----
+Current: 2 1
+Next position: 1 1
+----- Testcase 223 -----
+Can get close----- Testcase 224 -----
+Can get close----- Testcase 225 -----
+Can get close----- Testcase 226 -----
+Current: Robot[pos=(7,1);type=SW;dist=13]
+Next: Robot[pos=(5,1);type=SW;dist=9]
+----- Testcase 227 -----
+Current: Robot[pos=(2,2);type=SW;dist=5]
+Next: Robot[pos=(1,3);type=SW;dist=1]
+----- Testcase 228 -----
+Current: Robot[pos=(2,1);type=SW;dist=5]
+Next: Robot[pos=(2,3);type=SW;dist=1]
+----- Testcase 229 -----
+Current: 7 1
+Next position: 5 1
+Can get close----- Testcase 230 -----
+Current: 2 2
+Next position: 1 3
+Can get close----- Testcase 231 -----
+Current: 2 1
+Next position: 2 3
+Can get close----- Testcase 232 -----
+Current: 7 1
+Next position: 5 1
+----- Testcase 233 -----
+Current: 2 2
+Next position: 1 3
+----- Testcase 234 -----
+Current: 2 1
+Next position: 2 3
+----- Testcase 235 -----
+First position: (7,1)
+Next position: (-1,-1)
+----- Testcase 236 -----
+(-1,-1)
+----- Testcase 237 -----
+Current: Robot[pos=(2,1);type=C;dist=]
+Next: (-1,-1)
+----- Testcase 238 -----
+Current: Robot[pos=(7,1);type=C;dist=]
+Next: Robot[pos=(7,1);type=C;dist=]
+----- Testcase 239 -----
+Current: Robot[pos=(7,1);type=C;dist=]
+Next: Robot[pos=(7,1);type=C;dist=]
+----- Testcase 240 -----
+Current: Robot[pos=(2,1);type=C;dist=]
+Next: Robot[pos=(2,1);type=C;dist=]
+----- Testcase 241 -----
+Current: 7 1
+Next position: -1 -1
+----- Testcase 242 -----
+Current: 7 1
+Next position: -1 -1
+----- Testcase 243 -----
+Current: 2 1
+Next position: -1 -1
+----- Testcase 244 -----
+Current: 7 1
+Next position: 7 1
+----- Testcase 245 -----
+Current: 7 1
+Next position: 7 1
+----- Testcase 246 -----
+Current: 2 1
+Next position: 2 1
+----- Testcase 247 -----
+ArrayMovingObject[count=3;capacity=10;Sherlock[index=1;pos=(2,4);moving_rule=RUU];Watson[index=2;pos=(2,5);moving_rule=LU];Criminal[index=0;pos=(7,6)]]
+----- Testcase 248 -----
+ArrayMovingObject[count=3;capacity=10;Sherlock[index=1;pos=(2,4);moving_rule=RUU];Watson[index=2;pos=(2,5);moving_rule=LU];Criminal[index=0;pos=(2,2)]]
+----- Testcase 249 -----
+ArrayMovingObject[count=3;capacity=10;Sherlock[index=1;pos=(2,4);moving_rule=RUU];Watson[index=2;pos=(2,5);moving_rule=LU];Criminal[index=0;pos=(9,7)]]
+----- Testcase 250 -----
+ArrayMovingObject[count=3;capacity=10;Sherlock[index=1;pos=(2,4);moving_rule=RUU];Watson[index=2;pos=(2,5);moving_rule=LU];Criminal[index=0;pos=(8,9)]]
+----- Testcase 251 -----
+----- Testcase 252 -----
+----- Testcase 253 -----
+----- Testcase 254 -----
+----- Testcase 255 -----
+----- Testcase 256 -----
+----- Testcase 257 -----
+----- Testcase 258 -----
+----- Testcase 259 -----
+----- Testcase 260 -----
+----- Testcase 261 -----
+----- Testcase 262 -----
+----- Testcase 263 -----
+----- Testcase 264 -----
+----- Testcase 265 -----
+----- Testcase 266 -----
+----- Testcase 267 -----
+----- Testcase 268 -----
+----- Testcase 269 -----
+----- Testcase 270 -----
+0
+----- Testcase 271 -----
+0
+----- Testcase 272 -----
+1
+----- Testcase 273 -----
+1
+----- Testcase 274 -----
+1
+----- Testcase 275 -----
+----- Testcase 276 -----
+----- Testcase 277 -----
+----- Testcase 278 -----
+0----- Testcase 279 -----
+0----- Testcase 280 -----
+1----- Testcase 281 -----
+0----- Testcase 282 -----
+0----- Testcase 283 -----
+----- Testcase 284 -----
+----- Testcase 285 -----
+----- Testcase 286 -----
+0----- Testcase 287 -----
+----- Testcase 288 -----
+----- Testcase 289 -----
+----- Testcase 290 -----
+----- Testcase 291 -----
+Can not use
+----- Testcase 292 -----
+----- Testcase 293 -----
+RobotS
+----- Testcase 294 -----
+RobotC
+----- Testcase 295 -----
+RobotSW
+----- Testcase 296 -----
+all
+----- Testcase 297 -----
+Bag[count=0;]
+----- Testcase 298 -----
+Bag[count=2;]
+----- Testcase 299 -----
+Bag[count=12;]
+----- Testcase 300 -----
+Bag[count=13;]
+----- Testcase 301 -----
+Bag[count=13;]
+----- Testcase 302 -----
+Bag[count=0;]
+----- Testcase 303 -----
+Bag[count=2;]
+----- Testcase 304 -----
+Bag[count=1;]
+----- Testcase 305 -----
+Bag[count=1;]
+----- Testcase 306 -----
+Bag[count=0;]
+----- Testcase 303 -----
+Bag[count=1;]
+----- Testcase 304 -----
+Bag[count=1;]
+----- Testcase 305 -----
+Bag[count=1;]
+----- Testcase 310 -----
+Bag[count=0;]
+----- Testcase 311 -----
+Bag[count=4;]
+----- Testcase 312 -----
+Bag[count=12;]
+----- Testcase 313 -----
+Bag[count=13;]
+----- Testcase 314 -----
+Bag[count=13;]
+----- Testcase 315 -----
+Bag[count=0;]
+----- Testcase 316 -----
+Bag[count=3;]
+----- Testcase 317 -----
+Bag[count=2;]
+----- Testcase 318 -----
+Bag[count=2;]
+----- Testcase 319 -----
+Bag[count=0;]
+----- Testcase 320 -----
+Bag[count=1;]
+----- Testcase 321 -----
+Bag[count=1;]
+----- Testcase 322 -----
+Bag[count=1;]
+----- Testcase 323 -----
+Bag[count=0;]
+----- Testcase 324 -----
+Bag[count=2;]
+----- Testcase 325 -----
+Bag[count=14;]
+----- Testcase 326 -----
+Bag[count=15;]
+----- Testcase 327 -----
+Bag[count=15;]
+----- Testcase 328 -----
+0
+Bag[count=0;]
+----- Testcase 329 -----
+Bag[count=2;]
+----- Testcase 330 -----
+Bag[count=1;]
+----- Testcase 331 -----
+Bag[count=1;]
+----- Testcase 332 -----
+Bag[count=0;]
+----- Testcase 333 -----
+Bag[count=1;]
+----- Testcase 334 -----
+Bag[count=1;]
+----- Testcase 335 -----
+Bag[count=1;]
+----- Testcase 336 -----
+Bag[count=0;]
+----- Testcase 337 -----
+Bag[count=2;]
+----- Testcase 338 -----
+Bag[count=14;]
+----- Testcase 339 -----
+Bag[count=15;]
+----- Testcase 340 -----
+Bag[count=15;]
+----- Testcase 341 -----
+0
+Bag[count=0;]
+----- Testcase 342 -----
+Bag[count=2;]
+----- Testcase 343 -----
+Bag[count=1;]
+----- Testcase 344 -----
+Bag[count=1;]
+----- Testcase 345 -----
+Bag[count=0;]
+----- Testcase 346 -----
+Bag[count=1;]
+----- Testcase 347 -----
+Bag[count=1;]
+----- Testcase 348 -----
+Bag[count=1;]
+----- Testcase 349 -----
+Sherlock[index=1;pos=(1,4);moving_rule=RUU]
+----- Testcase 350 -----
+Sherlock[index=1;pos=(1,4);moving_rule=RUU]
+----- Testcase 351 -----
+Sherlock[index=1;pos=(1,4);moving_rule=RUU]
+----- Testcase 352 -----
+Sherlock[index=1;pos=(1,4);moving_rule=RUU]
+----- Testcase 353 -----
+Sherlock[index=1;pos=(1,4);moving_rule=RUU]
+----- Testcase 354 -----
+Sherlock[index=1;pos=(1,4);moving_rule=RUU]
+----- Testcase 355 -----
+Sherlock[index=1;pos=(1,4);moving_rule=RUU]
+----- Testcase 356 -----
+Watson[index=2;pos=(2,0);moving_rule=LU]
+----- Testcase 357 -----
+Watson[index=2;pos=(2,0);moving_rule=LU]
+----- Testcase 358 -----
+Watson[index=2;pos=(2,0);moving_rule=LU]
+----- Testcase 359 -----
+Watson[index=2;pos=(2,0);moving_rule=LU]
+----- Testcase 360 -----
+Watson[index=2;pos=(2,0);moving_rule=LU]
+----- Testcase 361 -----
+Watson[index=2;pos=(2,0);moving_rule=LU]
+----- Testcase 362 -----
+----- Testcase 363 -----
+----- Testcase 364 -----
+----- Testcase 365 -----
+----- Testcase 366 -----
+----- Testcase 367 -----
+----- Testcase 368 -----
+----- Testcase 369 -----
+----- Testcase 370 -----
+----- Testcase 371 -----
+----- Testcase 372 -----
+----- Testcase 373 -----
+----- Testcase 374 -----
+----- Testcase 375 -----
+----- Testcase 376 -----
+----- Testcase 377 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+Sherlock[index=1;pos=(-1,-1);moving_rule=]
+Watson[index=2;pos=(-1,-1);moving_rule=]
+ArrayMovingObject[count=0;capacity=0;]
+----- Testcase 378 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+Sherlock[index=1;pos=(-1,-1);moving_rule=]
+Watson[index=2;pos=(-1,-1);moving_rule=]
+ArrayMovingObject[count=0;capacity=0;]
+----- Testcase 379 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+Sherlock[index=1;pos=(-1,-1);moving_rule=]
+Watson[index=2;pos=(-1,-1);moving_rule=]
+ArrayMovingObject[count=0;capacity=0;]
+----- Testcase 380 -----
+Configuration[
+MAP_NUM_ROWS=0
+MAP_NUM_COLS=0
+MAX_NUM_MOVING_OBJECTS=0
+NUM_WALLS=0
+ARRAY_WALLS=[]
+NUM_FAKE_WALLS=0
+ARRAY_FAKE_WALLS=[]
+SHERLOCK_MOVING_RULE=
+SHERLOCK_INIT_POS=(-1,-1)
+SHERLOCK_INIT_HP=0
+SHERLOCK_INIT_EXP=0
+WATSON_MOVING_RULE=
+WATSON_INIT_POS=(-1,-1)
+WATSON_INIT_HP=0
+WATSON_INIT_EXP=0
+CRIMINAL_INIT_POS=(-1,-1)
+NUM_STEPS=0
+]
+Sherlock[index=1;pos=(-1,-1);moving_rule=]
+Watson[index=2;pos=(-1,-1);moving_rule=]
+ArrayMovingObject[count=0;capacity=0;]

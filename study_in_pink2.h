@@ -158,7 +158,7 @@ class Position {
   static const Position npos;
   Position(int r = 0, int c = 0);
   Position(const string &str_pos);
-  ~Position(){};
+  ~Position() {};
   int getRow() const;
   int getCol() const;
   void setRow(int r);
@@ -514,6 +514,9 @@ class PassingCard : public BaseItem {
   PassingCard(const PassingCard *other) {
     challenge = other->challenge;
   };
+  PassingCard(string challenge) {
+    this->challenge = challenge;
+  };
   ~PassingCard() override = default;
   bool canUse(Character *obj, Robot *robot) override;
   void use(Character *obj, Robot *robot) override;
@@ -537,8 +540,9 @@ class BaseBag {
       this->item = item;
       this->next = nullptr;
     }
-    ~Node(){};
+    ~Node() {};
   };
+
  protected:
   Character *obj;
   // addition
@@ -554,7 +558,7 @@ class BaseBag {
   // addition
   BaseBag(int capacity);
   virtual ~BaseBag() {
-    //destructor xóa các Node (Lưu ý phải xóa cả item_type trong Node đó)
+    //destructor xóa các Node
     while (size > 0) {
       Node *temp = head;
       head = head->next;
