@@ -544,7 +544,6 @@ bool ArrayMovingObject::add(MovingObject *mv_obj) {
   //thêm đối tượng mới vào cuối mảng đối tượng
   if (isFull()) return false;
   arr_mv_objs[count] = mv_obj;
-  std::cout << arr_mv_objs[count]->str();
   ++count;
   return true;
 }
@@ -1051,7 +1050,8 @@ void StudyPinkProgram::run(bool verbose) {
       if (isStop()) {
         return;
       }
-      if (criminal->getCount() % 3 == 0 && criminal->getCount() > 0) {
+      if ((arr_mv_objs->get(i)->getObjectType()) == CRIMINAL && criminal->getCount() % 3 == 0
+          && criminal->getCount() > 0) {
         arr_mv_objs->add(robot);
       }
       else delete robot;
