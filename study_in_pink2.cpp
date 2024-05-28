@@ -544,6 +544,7 @@ bool ArrayMovingObject::add(MovingObject *mv_obj) {
   //thêm đối tượng mới vào cuối mảng đối tượng
   if (isFull()) return false;
   arr_mv_objs[count] = mv_obj;
+  std::cout << arr_mv_objs[count]->str();
   ++count;
   return true;
 }
@@ -579,6 +580,7 @@ string ArrayMovingObject::str() const {
 
 
 Configuration::Configuration(const string &filepath) {
+  // constructor
   ifstream inputFile(filepath);
   string input;
   if (!inputFile.is_open()) {
@@ -1043,9 +1045,7 @@ void StudyPinkProgram::run(bool verbose) {
   for (int istep = 0; istep < config->num_steps; ++istep) {
     for (int i = 0; i < arr_mv_objs->size(); ++i) {
       MovingObject *robot = nullptr;
-      if (arr_mv_objs->get(i)->getObjectType() == MovingObjectType::CRIMINAL) {
-        robot = Robot::create(arr_mv_objs->size(), map, criminal, sherlock, watson);
-      }
+      robot = Robot::create(arr_mv_objs->size(), map, criminal, sherlock, watson);
       arr_mv_objs->get(i)->move();
       stopChecker = arr_mv_objs->checkMeet(i);
       if (isStop()) {
@@ -1737,71 +1737,3 @@ void initArray(Position *&position, int numPosition) {
 /// END OF STUDENT'S ANSWER
 ////////////////////////////////////////////////
 
-void StudyPinkProgram::run(bool verbose, ofstream &OUTPUT) {
-  if (isStop()) return;
-  for (int istep = 0; istep < config->num_steps; ++istep) {
-    for (int i = 0; i < arr_mv_objs->size(); ++i) {
-      MovingObject *robot = nullptr;
-      if (arr_mv_objs->get(i)->getObjectType() == MovingObjectType::CRIMINAL) {
-        robot = Robot::create(arr_mv_objs->size(), map, criminal, sherlock, watson);
-      }
-      arr_mv_objs->get(i)->move();
-      stopChecker = arr_mv_objs->checkMeet(i);
-      if (isStop()) {
-        printInfo(istep, i, OUTPUT);
-        delete robot;
-        return;
-      }
-      if (robot != nullptr) {
-        if (criminal->getCount() % 3 == 0 && criminal->getCount() > 0) {
-          if (!arr_mv_objs->add(robot)) delete robot;
-        }
-        else delete robot;
-      }
-      if (verbose) {
-        printInfo(istep, i, OUTPUT);
-      }
-    }
-  }
-}
-void StudyPinkProgram::printMap(ofstream &OUTPUT) const {
-  for (int i = -1; i < config->map_num_cols; i++) {
-    if (i == -1)
-      OUTPUT << setw(7) << ""
-             << "|";
-    else
-      OUTPUT << setw(7) << i << "|";
-  }
-  OUTPUT << endl;
-  for (int i = 0; i < config->map_num_rows; i++) {
-    OUTPUT << setw(7) << i << "|";
-    for (int j = 0; j < config->map_num_cols; j++) {
-      int idx = map->getElementType(i, j);
-      string nameElement[3] = {"     ", "IIIII", "-----"};
-      string nameChar[4] = {"S", "W", "C", "R"};
-      string robotName[4] = {"0", "1", "2", "3"};
-      string cellValue = nameElement[idx];
-      Position charPos(i, j);
-      for (int k = 0; k < arr_mv_objs->size(); k++) {
-        if (arr_mv_objs->get(k)->getCurrentPosition().isEqual(charPos)) {
-          if (cellValue == "     " || cellValue == "-----" || cellValue == "IIIII")
-            cellValue = "";
-          idx = arr_mv_objs->get(k)->getObjectType();
-          if (idx == 3) {
-            MovingObject *temp = arr_mv_objs->get(k);
-            while (cellValue[cellValue.length() - 1] == ' ') {
-              cellValue = cellValue.substr(0, cellValue.length() - 1);
-            }
-            cellValue += robotName[dynamic_cast<Robot *>(temp)->getType()];
-            continue;
-          }
-          cellValue += nameChar[idx];
-        }
-      }
-      if (!(cellValue == "     " || cellValue == "-----" || cellValue == "IIIII"))
-        cellValue = "" + cellValue + "";
-      OUTPUT << setw(7) << cellValue << "|";
-    }
-    OUTPUT << endl;
-  }
-}

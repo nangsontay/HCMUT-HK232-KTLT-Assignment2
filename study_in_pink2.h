@@ -569,7 +569,6 @@ class BaseBag {
   bool isFull() const;
   int havePassingCard;
   int haveExcemptionCard;
-  Robot *robot_check;
   virtual bool tradingConditionCheck() { return false; };
 //  void setRobotCheck(Robot *robot);
 //  void resetRobotCheck() { robot_check = nullptr; }
