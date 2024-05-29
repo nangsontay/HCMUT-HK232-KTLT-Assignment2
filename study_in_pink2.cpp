@@ -1267,20 +1267,23 @@ bool Sherlock::meet(Watson *watson) {
   //Check if it meets the trading condition
   if (!(bag->tradingConditionCheck()) || !(watsonBag->tradingConditionCheck())) return false;
   //Sherlock giving PassingCard to Watson
-  while (!(watson->getBag()->isFull())) {
+  bool stopTrade = false;
+  while (!(watson->getBag()->isFull()) && !stopTrade) {
     item = bag->get(PASSING_CARD);
     if (item != nullptr) {
       watsonBag->insert(item);
     }
     else break;
+    if (watson->getBag()->isFull()) stopTrade = true;
   }
   //Watson giving ExcemptionCard to Sherlock
-  while (!(bag->isFull())) {
+  while (!(bag->isFull()) && !stopTrade) {
     item = watsonBag->get(EXCEMPTION_CARD);
     if (item != nullptr) {
       bag->insert(item);
     }
     else break;
+    if (bag->isFull()) stopTrade = true;
   }
   return true;
 }
@@ -1352,20 +1355,24 @@ bool Watson::meet(Sherlock *sherlock) {
   //Check if it meets the trading condition
   if (!(bag->tradingConditionCheck()) || !(sherlockBag->tradingConditionCheck())) return false;
   //Watson giving ExcemptionCard to Sherlock
-  while (!(sherlock->getBag()->isFull())) {
-    item = bag->get(EXCEMPTION_CARD);
-    if (item != nullptr) {
-      sherlockBag->insert(item);
-    }
-    else break;
-  }
+
   //Sherlock giving PassingCard to Watson
-  while (!(bag->isFull())) {
+  bool stopTrade = false;
+  while (!(bag->isFull()) && !stopTrade) {
     item = sherlockBag->get(PASSING_CARD);
     if (item != nullptr) {
       bag->insert(item);
     }
     else break;
+    if (bag->isFull()) stopTrade = true;
+  }
+  while (!(sherlock->getBag()->isFull()) && !stopTrade) {
+    item = bag->get(EXCEMPTION_CARD);
+    if (item != nullptr) {
+      sherlockBag->insert(item);
+    }
+    else break;
+    if (sherlock->getBag()->isFull()) stopTrade = true;
   }
   return true;
 }
@@ -1484,9 +1491,13 @@ MovingObject::MovingObject(int index, const Position pos, Map *map, const string
   this->map = map;
   this->name = name;
 }
-Position MovingObject::getCurrentPosition() const {
+Position Character::getCurrentPosition() const {
   return pos;
 }
+Position Robot::getCurrentPosition() const {
+  return pos;
+}
+
 /*
  * CLASS: Character kế thừa class MovingObject
  */
@@ -1689,27 +1700,3 @@ void initArray(Position *&position, int numPosition) {
 ////////////////////////////////////////////////
 /// END OF STUDENT'S ANSWER
 ////////////////////////////////////////////////
-void StudyPinkProgram::run(bool verbose, ofstream &OUTPUT) {
-  if (isStop()) return;
-  for (int istep = 0; istep < config->num_steps; ++istep) {
-    for (int i = 0; i < arr_mv_objs->size(); ++i) {
-      MovingObject *robot = nullptr;
-      robot = Robot::create(arr_mv_objs->size(), map, criminal, sherlock, watson);
-      arr_mv_objs->get(i)->move();
-      stopChecker = arr_mv_objs->checkMeet(i);
-      if (isStop()) {
-        if (verbose) printStep(istep, OUTPUT);
-        delete robot;
-        return;
-      }
-      if ((arr_mv_objs->get(i)->getObjectType()) == CRIMINAL && criminal->getCount() % 3 == 0
-          && criminal->getCount() > 0) {
-        arr_mv_objs->add(robot);
-      }
-      else delete robot;
-      if (verbose) {
-        printStep(istep, OUTPUT);
-      }
-    }
-  }
-}
