@@ -179,7 +179,7 @@ class MovingObject {
   MovingObject(int index, const Position pos, Map *map, const string &name = "");
   virtual ~MovingObject() {};
   virtual Position getNextPosition() = 0;
-  Position getCurrentPosition() const;
+  virtual Position getCurrentPosition() const = 0;
   virtual void move() = 0;
   virtual string str() const = 0;
   // addition
@@ -194,6 +194,7 @@ class Character : public MovingObject {
   Character(int index, const Position pos, Map *map, const string &name = "");
   // addition
   virtual void move() = 0;
+  Position getCurrentPosition() const override;
   virtual Position getNextPosition() = 0;
   virtual int getHP() const { return -1; }
   virtual int getEXP() const { return -1; }
@@ -360,6 +361,7 @@ class Robot : public MovingObject {
         const string &name = "");
   virtual ~Robot();
   MovingObjectType getObjectType() const override;
+  Position getCurrentPosition() const override;
   virtual Position getNextPosition() = 0;
   virtual void move() override {
     Position temp = getNextPosition();
@@ -571,8 +573,6 @@ class BaseBag {
   int havePassingCard;
   int haveExcemptionCard;
   virtual bool tradingConditionCheck() { return false; };
-//  void setRobotCheck(Robot *robot);
-//  void resetRobotCheck() { robot_check = nullptr; }
   bool swapWithHead(Node *node);
 };
 
@@ -588,8 +588,7 @@ class SherlockBag : public BaseBag {
     if (havePassingCard) return true;
     else return false;
   }
-  ~SherlockBag() override {
-  };
+  ~SherlockBag() override {};
 };
 
 // addition
@@ -642,25 +641,7 @@ class StudyPinkProgram {
          << sherlock->str() << "--|--" << watson->str() << "--|--" << criminal->str() << endl;
   }
 
-  void printStep(int si, ofstream &OUTPUT) {
-    OUTPUT << "Step: " << setw(4) << setfill('0') << si
-           << "--"
-           << sherlock->str() << "--|--" << watson->str() << "--|--" << criminal->str() << endl;
-  }
-  void printResult(ofstream &OUTPUT) {
-    if (sherlock->getCurrentPosition().isEqual(criminal->getCurrentPosition())) {
-      OUTPUT << "Sherlock caught the criminal" << endl;
-    }
-    else if (watson->getCurrentPosition().isEqual(criminal->getCurrentPosition())) {
-      OUTPUT << "Watson caught the criminal" << endl;
-    }
-    else {
-      OUTPUT << "The criminal escaped" << endl;
-    }
-  }
-
   void run(bool verbose);
-  void run(bool verbose, ofstream &OUTPUT);
 };
 
 
