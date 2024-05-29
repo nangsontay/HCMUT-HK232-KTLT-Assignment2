@@ -1,21 +1,11 @@
 #include "study_in_pink2.h"
 
+
 ////////////////////////////////////////////////////////////////////////
 /// STUDENT'S ANSWER BEGINS HERE
 /// Complete the following functions
 /// DO NOT modify any parameters in the functions.
 ////////////////////////////////////////////////////////////////////////
-// Chỉnh lại di chuyển của RobotC (gợi ý: thực hiện hàm getPrevPosition cho Criminal)
-// Mô tả về các meet thay đổi (đã được confirm 90%)
-// File study_in_pink2.h những phần trước "addition" là gốc của đề (không thay đổi)
-// Chỉnh tên thuộc tính hp và exp của Sherlock và Watson
-// Position có nạp chồng 2 hàm isEqual
-// isStop kiểm tra vị trí Sherlock, Watson với Criminal và hp của Sherlock, Watson
-// Hàm run chú ý chỉnh từ hàm run() gốc (vị trí gọi printResult và printStep)
-// NOTE:
-// chú ý các phần addition nên sửa đổi để tránh đạo code
-// nộp Bkel cần xóa đổi lại 2 hàm printResult và printStep gốc, xóa thuộc tính outputFile
-
 
 /*
  * CLASS: Sherlock kế thừa class Character
@@ -30,6 +20,7 @@ Sherlock::Sherlock(int index, const string &moving_rule, const Position &init_po
   index_moving_rule = 0; //First start of rule
   bag = new SherlockBag(this);
 }
+
 Position Sherlock::getNextPosition() {
   if (exp <= 0) return Position::npos;
   int i = pos.getRow(), j = pos.getCol();
@@ -48,11 +39,20 @@ Position Sherlock::getNextPosition() {
       if (map->isValid(Position(i, j - 1), this)) next_pos = Position(i, j - 1);
       break;
   }
-  if (index_moving_rule == moving_rule.length() - 1) index_moving_rule = 0;
-  else ++index_moving_rule;
   return next_pos;
 }
-
+void Sherlock::move() {
+  Position temp = getNextPosition();
+  if (!temp.isEqual(Position::npos)) {
+    pos = temp;
+    if (index_moving_rule == moving_rule.length() - 1) index_moving_rule = 0;
+    else ++index_moving_rule;
+    return;
+  }
+  if (index_moving_rule == moving_rule.length() - 1) index_moving_rule = 0;
+  else ++index_moving_rule;
+  return;
+}
 /*
  * CLASS: Watson kế thừa class Character
  */
@@ -64,10 +64,6 @@ Watson::Watson(int index, const string &moving_rule, const Position &init_pos, M
   this->moving_rule = moving_rule;
   index_moving_rule = 0; //First start of rule
   bag = new WatsonBag(this);
-}
-void Character::move() {
-  Position temp = getNextPosition();
-  if (!temp.isEqual(Position::npos)) pos = temp;
 }
 
 Position Watson::getNextPosition() {
@@ -88,9 +84,19 @@ Position Watson::getNextPosition() {
       if (map->isValid(Position(i, j - 1), this)) next_pos = Position(i, j - 1);
       break;
   }
+  return next_pos;
+}
+void Watson::move() {
+  Position temp = getNextPosition();
+  if (!temp.isEqual(Position::npos)) {
+    pos = temp;
+    if (index_moving_rule == moving_rule.length() - 1) index_moving_rule = 0;
+    else ++index_moving_rule;
+    return;
+  }
   if (index_moving_rule == moving_rule.length() - 1) index_moving_rule = 0;
   else ++index_moving_rule;
-  return next_pos;
+  return;
 }
 /*
  * CLASS: Map
@@ -197,7 +203,6 @@ Position Criminal::getNextPosition() {
     }
 
   }
-  prev_pos = pos;
   if (countPos == -1) return Position::npos;
   if (countPos == 0) return nextPos[0];
   else {
@@ -213,10 +218,6 @@ Position Criminal::getNextPosition() {
   }
   return temp;
 }
-
-//bool Criminal::isCreatedRobotNext() const {
-//  return count % 3 == 0;
-//}
 
 /*
  * CLASS: Robot kế thừa class MovingObject
@@ -562,7 +563,7 @@ int ArrayMovingObject::size() const {
 string ArrayMovingObject::str() const {
   // trả về chuỗi biểu diễn mảng
   string result = "ArrayMovingObject[count=" + to_string(count) + ";capacity=" + to_string(capacity);
-  if (count == 0) return result + "]";
+  if (count == 0) return result + ";]";
   else result += ";";
   for (int i = 0; i < count - 1; ++i) {
     if (arr_mv_objs[i] != nullptr)
@@ -721,12 +722,9 @@ bool MagicBook::canUse(Character *obj, Robot *robot) {
 
 void MagicBook::use(Character *obj, Robot *robot) {
   //Increase exp by 25%
-  //cout << "Use magicbook. EXP before use:" << obj->getEXP() << endl;
   int exp = obj->getEXP();
   exp += ceil((double) exp * 0.25);
   obj->setEXP(exp);
-  //cout << "EXP after use:" << obj->getEXP() << endl;
-
 }
 
 // *CLASS: EnergyDrink
@@ -767,13 +765,8 @@ string FirstAid::str() const {
 bool FirstAid::canUse(Character *obj, Robot *robot) {
   // điều kiện sử dụng
   // *Sau khi đấm Robot, exp || hp
-  int objhp = obj->getHP();
-  int objexp = obj->getEXP();
-  //cout << (objhp) << " " << objexp << endl;
-  //if (robot != nullptr) cout << "Error robot lỏ\n";
   if ((((obj->getEXP()) <= 350) || ((obj->getHP()) <= 100)) && robot == nullptr && obj->getObjectType() < CRIMINAL
       && obj->getObjectType() >= SHERLOCK) {
-    //cout << "can use first aid\n";
     return true;
   }
   return false;
@@ -783,7 +776,6 @@ void FirstAid::use(Character *obj, Robot *robot) {
   int hp = obj->getHP();
   hp += ceil((double) hp * 0.5);
   obj->setHP(hp);
-
 }
 
 // *CLASS: ExcemptionCard
@@ -799,13 +791,8 @@ string ExcemptionCard::str() const {
 bool ExcemptionCard::canUse(Character *obj, Robot *robot) {
   // điều kiện sử dụng
   // *Trước khi đấm Robot, Sherlock, hp lẻ
-//  if (obj->getObjectType() != SHERLOCK) {
-//    cout << "NOT SHERLOCK USE\n";
-//    return false;
-//  }
   int hp = obj->getHP();
   if ((hp % 2 != 0) && (robot != nullptr) && (obj->getObjectType() == SHERLOCK)) {
-    //cout << "ExCard can use\n";
     return true;
   }
   else return false;
@@ -849,7 +836,6 @@ string PassingCard::str() const {
 bool PassingCard::canUse(Character *obj, Robot *robot) {
   // điều kiện sử dụng
   // *Trước khi đấm Robot, Watson, hp chẵn
-
   if ((((obj->getHP()) % 2) == 0) && robot != nullptr && obj->getObjectType() == WATSON)
     return true;
   return false;
@@ -878,23 +864,17 @@ BaseBag::BaseBag(int capacity) {
   this->head = nullptr;
   havePassingCard = 0;
   haveExcemptionCard = 0;
-  // // resetRobotCheck();
 }
-
-//void BaseBag::setRobotCheck(Robot *robot) {
-//  robot_check = robot;
-//}
 
 bool BaseBag::insert(BaseItem *item) {
   // thêm Node chứa item_type vào đầu Linked List
   if (isFull()) return false;
   if (!item) return false;
-  if (head == nullptr) {
+  if (size == 0) {
     head = new Node(item);
     size++;
     if (item->getType() == ItemType::PASSING_CARD) ++havePassingCard;
     if (item->getType() == ItemType::EXCEMPTION_CARD) ++haveExcemptionCard;
-    //cout << "So exCard: " << haveExcemptionCard << endl;
     return true;
   }
   Node *nextHead = head;
@@ -903,8 +883,6 @@ bool BaseBag::insert(BaseItem *item) {
   size++;
   if (item->getType() == ItemType::PASSING_CARD) ++havePassingCard;
   if (item->getType() == ItemType::EXCEMPTION_CARD) ++haveExcemptionCard;
-  //cout << "Inserted " << head->item->str() << endl;
-  //cout << "So exCard: " << haveExcemptionCard << endl;
   return true;
 }
 
@@ -915,11 +893,12 @@ BaseItem *BaseBag::get(ItemType itemType) {
     if (node->item->getType() == itemType) {
       if (swapWithHead(node)) {
         BaseItem *item = head->item;
-        head = head->next;
+        Node *temp = head->next;
+        delete head;
+        head = temp;
         --size;
         if (itemType == ItemType::PASSING_CARD) --havePassingCard;
         if (itemType == ItemType::EXCEMPTION_CARD) --haveExcemptionCard;
-        // resetRobotCheck();
         return item;
       }
       else return nullptr;
@@ -958,11 +937,14 @@ BaseItem *BaseBag::get() {
     if (node->item->canUse(obj, nullptr)) {
       if (swapWithHead(node)) {
         item = head->item;
-        head = head->next;
+        Node *temp = head->next;
+        delete head;
+        head = temp;
         --size;
+        if (item->getType() == ItemType::PASSING_CARD) --havePassingCard;
+        if (item->getType() == ItemType::EXCEMPTION_CARD) --haveExcemptionCard;
         return item;
       }
-      else return nullptr;
     }
     node = node->next;
   }
@@ -980,15 +962,7 @@ bool BaseBag::isFull() const {
   return size == capacity;
 }
 
-bool BaseBag::swapWithHead(BaseBag::Node *node) {
-  Node *prevNode = head;
-  if (node == head) return true;
-  while (prevNode->next != node) {
-    if (prevNode->next == nullptr) return false;
-    else {
-      prevNode = prevNode->next;
-    }
-  }
+bool BaseBag::swapWithHead(Node *node) {
   BaseItem *temp = node->item;
   node->item = head->item;
   head->item = temp;
@@ -1032,7 +1006,6 @@ StudyPinkProgram::~StudyPinkProgram() {
   delete sherlock;
   delete watson;
 }
-
 bool StudyPinkProgram::isStop() const {
   if (stopChecker || ((sherlock->getHP()) == 1) || (watson->getHP()) == 1) {
     return true;
@@ -1041,6 +1014,7 @@ bool StudyPinkProgram::isStop() const {
 }
 
 void StudyPinkProgram::run(bool verbose) {
+  if (isStop()) return;
   for (int istep = 0; istep < config->num_steps; ++istep) {
     for (int i = 0; i < arr_mv_objs->size(); ++i) {
       MovingObject *robot = nullptr;
@@ -1048,6 +1022,8 @@ void StudyPinkProgram::run(bool verbose) {
       arr_mv_objs->get(i)->move();
       stopChecker = arr_mv_objs->checkMeet(i);
       if (isStop()) {
+        if (verbose) printStep(istep);
+        delete robot;
         return;
       }
       if ((arr_mv_objs->get(i)->getObjectType()) == CRIMINAL && criminal->getCount() % 3 == 0
@@ -1090,7 +1066,6 @@ bool ArrayMovingObject::fightRobot(Character *character, Robot *robot) {
       case SW:
         character->meet(dynamic_cast<RobotSW *>(robot));
         break;
-
     }
   return result;
 }
@@ -1185,7 +1160,6 @@ bool ArrayMovingObject::handleCheckMeet(Robot *robot, int index, int *meeting, i
 }
 bool ArrayMovingObject::checkMeet(int index) {
   if (index < 0 || index >= count) return false;
-  bool result = false;
   //Check if there are more than 1 MovingObject standing at the same position with index
   int meeting[count];
   int countMeet = 0;
@@ -1197,13 +1171,7 @@ bool ArrayMovingObject::checkMeet(int index) {
     }
   }
   if (countMeet == 0) return false;
-  //Debug only: print meeting
-  for (int i = 0; i < countMeet; ++i) {
-    //cout << "Meeting: " << meeting[i] << endl;
-  }
-  //cout << "end a time" << endl;
   switch (arr_mv_objs[index]->getObjectType()) {
-    //cout << "start switching\n";
     case CRIMINAL: {
       return handleCheckMeet(dynamic_cast<Criminal *>(arr_mv_objs[index]), index, meeting, countMeet);
     }
@@ -1225,11 +1193,8 @@ bool ArrayMovingObject::checkMeet(int index) {
 
 bool Sherlock::meet(RobotS *robotS) {
   //get Card for each time meet RobotS
-//  this->getBag()->setRobotCheck(robotS);
   BaseItem *itemUse = preFight(robotS);
-//  this->getBag()-> resetRobotCheck();
   if (itemUse) itemUse->use(this, robotS);
-  //else cout << "No item to use\n";
   // Xử lý khi gặp robot S
   if (exp > 400) {
     bag->insert(robotS->getItem());
@@ -1246,7 +1211,6 @@ bool Sherlock::meet(RobotS *robotS) {
 }
 bool Sherlock::meet(RobotW *robotW) {
   // Xử lý khi gặp robot W
-//  this->getBag()->setRobotCheck(robotW);
   BaseItem *itemUse = preFight(robotW);
   if (itemUse) itemUse->use(this, robotW);
   usedCard = false;
@@ -1257,9 +1221,7 @@ bool Sherlock::meet(RobotW *robotW) {
 bool Sherlock::meet(RobotSW *robotSW) {
   //Xử lý khi gặp robot SW
   //Bắt buộc dùng Card kể cả khi có khả năng vượt task
-//  this->getBag()->setRobotCheck(robotSW);
   BaseItem *itemUse = preFight(robotSW);
-//  this->getBag()-> resetRobotCheck();
   if (itemUse) itemUse->use(this, robotSW);
   if ((exp > 300) && (hp > 335)) {
     bag->insert(robotSW->getItem());
@@ -1280,9 +1242,7 @@ bool Sherlock::meet(RobotSW *robotSW) {
 
 bool Sherlock::meet(RobotC *robotC) {
   // Xử lý khi gặp robot C
-//  this->getBag()->setRobotCheck(robotC);
   BaseItem *itemUse = preFight(robotC);
-//  this->getBag()-> resetRobotCheck();
   usedCard = false;
   if (exp > 500) {
     setPos(robotC->criminalCaught());
@@ -1330,7 +1290,6 @@ bool Sherlock::meet(Watson *watson) {
 // ! Thực hiện get từ bag sau khi insert item_type
 bool Watson::meet(RobotS *robotS) {
   //Xử lý trao đổi khi gặp robot S
-//  this->getBag()->setRobotCheck(robotS);
   BaseItem *itemUse = preFight(robotS);
   if (itemUse) itemUse->use(this, robotS);
   usedCard = false;
@@ -1340,13 +1299,11 @@ bool Watson::meet(RobotS *robotS) {
 bool Watson::meet(RobotW *robotW) {
   // Xử lý trao đổi khi gặp robot W
   //get Card for each time meet RobotS
-//  this->getBag()->setRobotCheck(robotW);
   BaseItem *itemUse = preFight(robotW);
   if (itemUse) itemUse->use(this, robotW);
   // Xử lý khi gặp robot S
   if (hp > 350 || usedCard) {
     if (bag->insert(robotW->getItem()));
-    //cout << "WatsonBag : " << this->getBag()->str() << endl;
     usedCard = false;
     postFight();
     return true;
@@ -1361,7 +1318,6 @@ bool Watson::meet(RobotW *robotW) {
 bool Watson::meet(RobotSW *robotSW) {
   // Xử lý trao đổi khi gặp robot SW
   //get Card for each time meet RobotS
-//  this->getBag()->setRobotCheck(robotSW);
   BaseItem *itemUse = preFight(robotSW);
   if (itemUse) itemUse->use(this, robotSW);
   // Xử lý khi gặp robot Sx
@@ -1381,11 +1337,9 @@ bool Watson::meet(RobotSW *robotSW) {
 
 bool Watson::meet(RobotC *robotC) {
   // Xử lý trao đổi khi gặp robot C
-//  this->getBag()->setRobotCheck(robotC);
   BaseItem *itemUse = preFight(robotC);
   if (itemUse) itemUse->use(this, robotC);
   bag->insert(robotC->getItem());
-  //cout << "WatsonBag : " << this->getBag()->str() << endl;
   postFight();
   usedCard = false;
   return true;
@@ -1425,7 +1379,7 @@ BaseItem *Character::preFight(Robot *robot) {
       else return nullptr;
       break;
     case WATSON:
-      if (this->getBag()->havePassingCard != 0 && (this->getHP()) % 2 == 1)
+      if (this->getBag()->havePassingCard != 0 && (this->getHP()) % 2 == 0)
         item = this->getBag()->get(PASSING_CARD);
       break;
     default:
@@ -1434,7 +1388,6 @@ BaseItem *Character::preFight(Robot *robot) {
   if (item != nullptr && item->canUse(this, robot)) {
     return item;
   }
-//  cout << "get item successfully. " << this->getBag()->str() << endl;
   return nullptr;
 }
 void Character::postFight() {
@@ -1654,7 +1607,7 @@ int Criminal::getCount() const {
 int reduceNum(int num) {
   if (num < 10) return num;
   else {
-    while (num > 10) {
+    while (num >= 10) {
       num = num / 10 + num % 10;
     }
     return num;
@@ -1736,4 +1689,27 @@ void initArray(Position *&position, int numPosition) {
 ////////////////////////////////////////////////
 /// END OF STUDENT'S ANSWER
 ////////////////////////////////////////////////
-
+void StudyPinkProgram::run(bool verbose, ofstream &OUTPUT) {
+  if (isStop()) return;
+  for (int istep = 0; istep < config->num_steps; ++istep) {
+    for (int i = 0; i < arr_mv_objs->size(); ++i) {
+      MovingObject *robot = nullptr;
+      robot = Robot::create(arr_mv_objs->size(), map, criminal, sherlock, watson);
+      arr_mv_objs->get(i)->move();
+      stopChecker = arr_mv_objs->checkMeet(i);
+      if (isStop()) {
+        if (verbose) printStep(istep, OUTPUT);
+        delete robot;
+        return;
+      }
+      if ((arr_mv_objs->get(i)->getObjectType()) == CRIMINAL && criminal->getCount() % 3 == 0
+          && criminal->getCount() > 0) {
+        arr_mv_objs->add(robot);
+      }
+      else delete robot;
+      if (verbose) {
+        printStep(istep, OUTPUT);
+      }
+    }
+  }
+}
