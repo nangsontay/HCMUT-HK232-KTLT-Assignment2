@@ -11,7 +11,6 @@
 #ifndef _H_STUDY_IN_PINK_2_H_
 #define _H_STUDY_IN_PINK_2_H_
 #include "main.h"
-
 ////////////////////////////////////////////////////////////////////////
 /// STUDENT'S ANSWER BEGINS HERE
 /// Complete the following functions
@@ -194,7 +193,7 @@ class Character : public MovingObject {
   bool usedCard;
   Character(int index, const Position pos, Map *map, const string &name = "");
   // addition
-  virtual void move();
+  virtual void move() = 0;
   virtual Position getNextPosition() = 0;
   virtual int getHP() const { return -1; }
   virtual int getEXP() const { return -1; }
@@ -220,12 +219,13 @@ class Sherlock : public Character {
   // addition
   string moving_rule;
   int index_moving_rule;
-  BaseBag *bag;
+  SherlockBag *bag;
  public:
   Sherlock(int index, const string &moving_rule, const Position &init_pos, Map *map, int init_hp, int init_exp);
   Position getNextPosition() override;
   string str() const override;
   // addition
+  void move() override;
   MovingObjectType getObjectType() const override;
   BaseBag *getBag() const override;
   int getHP() const override;
@@ -245,7 +245,6 @@ class Watson : public Character {
   friend class TestStudyInPink;
 
  private:
-  // TODO
   int hp, exp;
   // addition
   string moving_rule;
@@ -256,6 +255,7 @@ class Watson : public Character {
   Position getNextPosition() override;
   string str() const override;
   // addition
+  void move() override;
   MovingObjectType getObjectType() const override;
   BaseBag *getBag() const override;
   int getHP() const override;
@@ -274,7 +274,6 @@ class Criminal : public Character {
   friend class TestStudyInPink;
 
  private:
-  // TODO
   Sherlock *sherlock;
   Watson *watson;
   // addition
@@ -385,7 +384,7 @@ class RobotC : public Robot {
          Map *map,
          Criminal *criminal);
   ~RobotC() override = default;
-  Position getNextPosition();
+  Position getNextPosition() override;
   // addition
   Position criminalCaught() {
     return criminal->getCurrentPosition();
@@ -422,7 +421,7 @@ class RobotW : public Robot {
          Watson *watson);
   ~RobotW() override = default;
   Position getNextPosition() override;
-  int getDistance() const;
+  int getDistance() const override;
   // addition
 };
 
@@ -511,9 +510,6 @@ class PassingCard : public BaseItem {
   string challenge;
  public:
   PassingCard(int i, int j);
-  PassingCard(const PassingCard *other) {
-    challenge = other->challenge;
-  };
   PassingCard(string challenge) {
     this->challenge = challenge;
   };
@@ -526,22 +522,27 @@ class PassingCard : public BaseItem {
   RobotType getRobotType() const;
 };
 
-class BaseBag {
-  friend class TestStudyInPink;
+class Node {
+  friend class BaseBag;
+
+  friend class SherlockBag;
+
+  friend class WatsonBag;
 
  protected:
-  // addition
-  class Node {
-   public:
-    BaseItem *item;
-    Node *next;
-   public:
-    Node(BaseItem *item) {
-      this->item = item;
-      this->next = nullptr;
-    }
-    ~Node() {};
+  BaseItem *item;
+  Node *next;
+ public:
+  Node(BaseItem *item) {
+    this->item = item;
+    this->next = nullptr;
+  }
+  ~Node() {
   };
+};
+
+class BaseBag {
+  friend class TestStudyInPink;
 
  protected:
   Character *obj;
@@ -587,7 +588,8 @@ class SherlockBag : public BaseBag {
     if (havePassingCard) return true;
     else return false;
   }
-  ~SherlockBag() override {};
+  ~SherlockBag() override {
+  };
 };
 
 // addition
@@ -599,7 +601,7 @@ class WatsonBag : public BaseBag {
  public:
   WatsonBag(Watson *character);
   bool tradingConditionCheck() override {
-    if (havePassingCard) return true;
+    if (haveExcemptionCard) return true;
     else return false;
   }
   ~WatsonBag() override {};
@@ -623,7 +625,6 @@ class StudyPinkProgram {
   StudyPinkProgram(const string &config_file_path);
   ~StudyPinkProgram();
   bool isStop() const;
-  void printMap(ofstream &OUTPUT) const;
   void printResult() const {
     if (sherlock->getCurrentPosition().isEqual(criminal->getCurrentPosition())) {
       cout << "Sherlock caught the criminal" << endl;
@@ -635,35 +636,31 @@ class StudyPinkProgram {
       cout << "The criminal escaped" << endl;
     }
   }
-
   void printStep(int si) const {
     cout << "Step: " << setw(4) << setfill('0') << si
          << "--"
          << sherlock->str() << "--|--" << watson->str() << "--|--" << criminal->str() << endl;
   }
-  void run(bool verbose);
-  // addition
-  void run(bool verbose, ofstream &OUTPUT);
-  void printInfo(int si, int i, ofstream &OUTPUT) {
-    OUTPUT << endl
-           << "*************AFTER MOVE*************" << endl;
-    OUTPUT
-        << "ROUND : " << si << " - TURN : " << i << endl;
-    stringstream ss(arr_mv_objs->str());
-    string lineArr = "";
-    getline(ss, lineArr, 'C');
-    OUTPUT << lineArr << "]" << endl;
-    getline(ss, lineArr, ']');
-    OUTPUT << "\tC" << lineArr << "]" << endl;
-    while (getline(ss, lineArr, ']')) {
-      if (lineArr.length() > 0)
-        OUTPUT << "\t" << lineArr.substr(1) << "]" << endl;
-    }
-    OUTPUT << "Sherlock HP_" << sherlock->getHP() << " EXP_" << sherlock->getEXP() << endl
-           << "Watson HP_" << watson->getHP() << " EXP_" << watson->getEXP() << endl
-           << "SherlockBag : " << sherlock->getBag()->str() << endl
-           << "WatsonBag : " << watson->getBag()->str() << endl;
+
+  void printStep(int si, ofstream &OUTPUT) {
+    OUTPUT << "Step: " << setw(4) << setfill('0') << si
+           << "--"
+           << sherlock->str() << "--|--" << watson->str() << "--|--" << criminal->str() << endl;
   }
+  void printResult(ofstream &OUTPUT) {
+    if (sherlock->getCurrentPosition().isEqual(criminal->getCurrentPosition())) {
+      OUTPUT << "Sherlock caught the criminal" << endl;
+    }
+    else if (watson->getCurrentPosition().isEqual(criminal->getCurrentPosition())) {
+      OUTPUT << "Watson caught the criminal" << endl;
+    }
+    else {
+      OUTPUT << "The criminal escaped" << endl;
+    }
+  }
+
+  void run(bool verbose);
+  void run(bool verbose, ofstream &OUTPUT);
 };
 
 
